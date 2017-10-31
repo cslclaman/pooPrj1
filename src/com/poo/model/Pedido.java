@@ -18,10 +18,18 @@ public class Pedido {
         this.dataEmissaoPedido = dataEmissaoPedido;
     }
     
+    public String getDataPagto() {
+        return dataPagto;
+    }
+
     public void setDataPagto(String dataPagto) {
         this.dataPagto = dataPagto;
     }
 
+    public boolean getStatus() {
+        return status;
+    }
+    
     public void setStatus(boolean status) {
         this.status = status;
     }
@@ -32,14 +40,6 @@ public class Pedido {
 
     public String getDataEmissaoPedido() {
         return dataEmissaoPedido;
-    }
-
-    public String getDataPagto() {
-        return dataPagto;
-    }
-
-    public boolean isStatus() {
-        return status;
     }
 
     public Cliente getCliente() {
