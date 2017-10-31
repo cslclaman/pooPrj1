@@ -1,5 +1,7 @@
 package com.poo.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Airton Brasil 0030481611002
@@ -12,10 +14,12 @@ public class Pedido {
     private String dataPagto;
     private boolean status;
     private Cliente cliente;
+    private ArrayList<ItemPedido> itensPedidos;
 
     public Pedido(int Numero, String dataEmissaoPedido) {
         this.Numero = Numero;
         this.dataEmissaoPedido = dataEmissaoPedido;
+        itensPedidos = new ArrayList<ItemPedido>();
     }
     
     public String getDataPagto() {
@@ -50,4 +54,8 @@ public class Pedido {
         this.cliente = cliente;
     }
     
+    public void addPedido(ItemPedido itemPedido){
+        itensPedidos.add(itemPedido);
+        itemPedido.setPedido(this);
+    }
 }
