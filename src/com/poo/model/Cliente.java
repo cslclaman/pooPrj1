@@ -11,17 +11,13 @@ import java.util.ArrayList;
 public class Cliente extends Pessoa {
     private double limiteCred;
     private double limiteDisp;
-    /* IMPLEMENTAR QUANDO CLASSE Pedido FOR CRIADA
     private ArrayList<Pedido> pedidos;
-    */
-
+    
     public Cliente(String cpf, String nome, double limiteCred) {
         super(cpf, nome);
         this.limiteCred = limiteCred;
         limiteDisp = limiteCred;
-        /* IMPLEMENTAR QUANDO CLASSE Pedido FOR CRIADA
         pedidos = new ArrayList<Pedido>();
-        */
     }
 
     public double getLimiteCred() {
@@ -32,10 +28,8 @@ public class Cliente extends Pessoa {
         return limiteDisp;
     }
     
-    /* IMPLEMENTAR QUANDO CLASSE Pedido FOR CRIADA
     public void addPedido(Pedido pedido){
         pedidos.add(pedido);
         pedido.setCliente(this);
     }
-    */
 }
