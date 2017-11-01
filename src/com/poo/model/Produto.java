@@ -19,7 +19,6 @@ public class Produto {
     public Produto(int codigo, String descricao) {
         this.codigo = codigo;
         this.descricao = descricao;
-        qtdeDisponivel = 0;
     }
     
     public int getQtdeDisponivel() {
