@@ -63,8 +63,8 @@ public class Pedido {
         this.vendedor = vendedor;
     }
     
-    public void addPedido(ItemPedido itemPedido){
-        itensPedidos.add(itemPedido);
-        itemPedido.setPedido(this);
+    public void addItemPedid(ItemPedido item){
+        itensPedidos.add(item);
+        item.setPedido(this);
     }
 }

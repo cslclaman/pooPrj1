@@ -10,6 +10,7 @@ public class ItemPedido {
     private int numeroItem;
     private int qtdeVendida;
     private Pedido pedido;
+    private Produto produto;
 
     public ItemPedido(int numeroItem, int qtdeVendida) {
         this.numeroItem = numeroItem;
@@ -35,4 +36,14 @@ public class ItemPedido {
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
     }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+    
+    
 }

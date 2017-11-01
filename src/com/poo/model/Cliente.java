@@ -27,9 +27,14 @@ public class Cliente extends Pessoa {
     public double getLimiteDisp() {
         return limiteDisp;
     }
+
+    public void setLimiteDisp(double limiteDisp) {
+        this.limiteDisp = limiteDisp;
+    }
     
     public void addPedido(Pedido pedido){
         pedidos.add(pedido);
         pedido.setCliente(this);
+        pedido.getVendedor().addPedido(pedido);
     }
 }
