@@ -65,7 +65,7 @@ public class Pedido {
         vendedor.addPedido(this);
     }
     
-    public void addItemPedid(ItemPedido item){
+    public void addItemPedido(ItemPedido item){
         itensPedidos.add(item);
         item.setPedido(this);
     }
