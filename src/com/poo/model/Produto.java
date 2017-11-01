@@ -22,12 +22,24 @@ public class Produto {
         qtdeDisponivel = 0;
     }
     
+    public int getQtdeDisponivel() {
+        return qtdeDisponivel;
+    }
+    
     public void setQtdeDisponivel(int qtdeDisponivel) {
         this.qtdeDisponivel = qtdeDisponivel;
+    }
+    
+    public double getPrecoUnit() {
+        return precoUnit;
     }
 
     public void setPrecoUnit(double precoUnit) {
         this.precoUnit = precoUnit;
+    }
+    
+    public int getEstoqueMin() {
+        return estoqueMin;
     }
 
     public void setEstoqueMin(int estoqueMin) {
@@ -41,19 +53,5 @@ public class Produto {
     public String getDescricao() {
         return descricao;
     }
-
-    public int getQtdeDisponivel() {
-        return qtdeDisponivel;
-    }
-
-    public double getPrecoUnit() {
-        return precoUnit;
-    }
-
-    public int getEstoqueMin() {
-        return estoqueMin;
-    }
-    
-    
     
 }

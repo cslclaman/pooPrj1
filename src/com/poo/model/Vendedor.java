@@ -13,11 +13,15 @@ import java.util.ArrayList;
  */
 public class Vendedor extends Pessoa{
     private double salarioBase;
-    private double comissa;
+    private double comissao;
     private ArrayList<Pedido> pedidos;
 
     public Vendedor(double salarioBase, String cpf, String nome) {
         super(cpf, nome);
+        this.salarioBase = salarioBase;
+    }
+    
+    public void setSalarioBase(double salarioBase) {
         this.salarioBase = salarioBase;
     }
 
@@ -25,16 +29,12 @@ public class Vendedor extends Pessoa{
         return salarioBase;
     }
 
-    public void setSalarioBase(double salarioBase) {
-        this.salarioBase = salarioBase;
+    public void setComissao(double comissao) {
+        this.comissao = comissao;
     }
 
-    public double getComissa() {
-        return comissa;
-    }
-
-    public void setComissa(double comissa) {
-        this.comissa = comissa;
+    public double getComissao() {
+        return comissao;
     }
     
     public void addPedido(Pedido pedido){
