@@ -5,6 +5,8 @@
  */
 package com.poo.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Pc
@@ -12,6 +14,7 @@ package com.poo.model;
 public class Vendedor extends Pessoa{
     private double salarioBase;
     private double comissa;
+    private ArrayList<Pedido> pedidos;
 
     public Vendedor(double salarioBase, String cpf, String nome) {
         super(cpf, nome);
@@ -32,6 +35,12 @@ public class Vendedor extends Pessoa{
 
     public void setComissa(double comissa) {
         this.comissa = comissa;
+    }
+    
+    public void addPedido(Pedido pedido){
+        pedidos.add(pedido);
+        pedido.setVendedor(this);
+        
     }
     
     

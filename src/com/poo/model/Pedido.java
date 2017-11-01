@@ -14,6 +14,7 @@ public class Pedido {
     private String dataPagto;
     private boolean status;
     private Cliente cliente;
+    private Vendedor vendedor;
     private ArrayList<ItemPedido> itensPedidos;
 
     public Pedido(int Numero, String dataEmissaoPedido) {
@@ -52,6 +53,14 @@ public class Pedido {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public Vendedor getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(Vendedor vendedor) {
+        this.vendedor = vendedor;
     }
     
     public void addPedido(ItemPedido itemPedido){
