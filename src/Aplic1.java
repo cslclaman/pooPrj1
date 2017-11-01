@@ -39,6 +39,7 @@ public class Aplic1 {
         System.out.println("Pedido: " + pedido1.getNumero());
         System.out.println("Vendedor: " + vend1.getNome());
         System.out.println("Cliente: " + cli1.getNome());
+        System.out.println("Limite disponível: " + cli1.getLimiteDisp());
         int c = 0;
         System.out.println("Itens:");
         while(pedido1.getItensPedidos().size() > c){
@@ -50,6 +51,7 @@ public class Aplic1 {
         
         System.out.println(prod1.getDescricao() + " " + prod1.getQtdeDisponivel());
         System.out.println(prod2.getDescricao() + " " + prod2.getQtdeDisponivel());
+        System.out.println("Limite disponível: " + cli1.getLimiteDisp());
         
     }
     
