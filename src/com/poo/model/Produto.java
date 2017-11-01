@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.poo.model;
 
 /**
  *
- * @author Pc
+ * @author Airton Brasil 0030481611002
+ * @author Allan Flores 0030481611001
+ * @author Caique Siqueira 0030481611009
  */
 public class Produto {
     private int codigo;
