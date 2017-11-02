@@ -22,10 +22,6 @@ public class Pedido {
         this.dataEmissaoPedido = dataEmissaoPedido;
         itensPedidos = new ArrayList<ItemPedido>();
     }
-
-    public ArrayList<ItemPedido> getItensPedidos() {
-        return itensPedidos;
-    }
     
     public String getDataPagto() {
         return dataPagto;
@@ -50,7 +46,11 @@ public class Pedido {
     public String getDataEmissaoPedido() {
         return dataEmissaoPedido;
     }
-
+    
+    public ArrayList<ItemPedido> getItensPedidos() {
+        return itensPedidos;
+    }
+    
     public Cliente getCliente() {
         return cliente;
     }

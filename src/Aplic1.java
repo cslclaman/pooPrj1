@@ -22,7 +22,7 @@ public class Aplic1 {
         prod2.setQtdeDisponivel(100);
         
         Cliente cli1 = new Cliente("1234", "João Pereira", 1000.00);
-        Vendedor vend1 = new Vendedor(1500.00, "4321", "Andreia");
+        Vendedor vend1 = new Vendedor("4321", "Andreia",1500.00);
         
         Pedido pedido1 = new Pedido(1, "31/10/2017");
         pedido1.setCliente(cli1);
