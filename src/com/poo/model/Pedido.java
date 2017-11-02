@@ -57,7 +57,6 @@ public class Pedido {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
-        cliente.addPedido(this);
     }
 
     public Vendedor getVendedor() {
@@ -66,7 +65,6 @@ public class Pedido {
 
     public void setVendedor(Vendedor vendedor) {
         this.vendedor = vendedor;
-        vendedor.addPedido(this);
     }
     
     public void addItemPedido(ItemPedido item){
