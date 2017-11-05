@@ -21,6 +21,7 @@ public class Pedido {
         this.Numero = Numero;
         this.dataEmissaoPedido = dataEmissaoPedido;
         itensPedidos = new ArrayList<ItemPedido>();
+        status = false;
     }
     
     public String getDataPagto() {
@@ -29,6 +30,7 @@ public class Pedido {
 
     public void setDataPagto(String dataPagto) {
         this.dataPagto = dataPagto;
+        status = true;
     }
 
     public boolean getStatus() {
