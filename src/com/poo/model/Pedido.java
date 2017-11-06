@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author Caique Siqueira 0030481611009
  */
 public class Pedido {
-    private int Numero;
+    private int numero;
     private String dataEmissaoPedido;
     private String dataPagto;
     private boolean status;
@@ -17,8 +17,8 @@ public class Pedido {
     private Vendedor vendedor;
     private ArrayList<ItemPedido> itensPedidos;
 
-    public Pedido(int Numero, String dataEmissaoPedido) {
-        this.Numero = Numero;
+    public Pedido(int numero, String dataEmissaoPedido) {
+        this.numero = numero;
         this.dataEmissaoPedido = dataEmissaoPedido;
         itensPedidos = new ArrayList<ItemPedido>();
         status = false;
@@ -42,7 +42,7 @@ public class Pedido {
     }
     
     public int getNumero() {
-        return Numero;
+        return numero;
     }
 
     public String getDataEmissaoPedido() {

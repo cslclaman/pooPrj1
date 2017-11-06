@@ -22,6 +22,7 @@ public class ItemPedido {
     }
     
     public void setQtdeVendida(int qtdeVendida) {
+        produto.setQtdeDisponivel(produto.getQtdeDisponivel() + (this.qtdeVendida - qtdeVendida));
         this.qtdeVendida = qtdeVendida;
     }
     
