@@ -1,9 +1,9 @@
 
-import com.poo.model.Cliente;
-import com.poo.model.ItemPedido;
-import com.poo.model.Pedido;
-import com.poo.model.Produto;
-import com.poo.model.Vendedor;
+import fatec.poo.model.Cliente;
+import fatec.poo.model.ItemPedido;
+import fatec.poo.model.Pedido;
+import fatec.poo.model.Produto;
+import fatec.poo.model.Vendedor;
 
 /**
  *
