@@ -40,12 +40,27 @@ public class FrmMenu extends javax.swing.JFrame {
         menuCadastro.setText("Cadastro");
 
         menuItemClientes.setText("Clientes");
+        menuItemClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemClientesActionPerformed(evt);
+            }
+        });
         menuCadastro.add(menuItemClientes);
 
         menuItemVendedores.setText("Vendedores");
+        menuItemVendedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemVendedoresActionPerformed(evt);
+            }
+        });
         menuCadastro.add(menuItemVendedores);
 
         menuItemProdutos.setText("Produtos");
+        menuItemProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemProdutosActionPerformed(evt);
+            }
+        });
         menuCadastro.add(menuItemProdutos);
 
         jMenuBar1.add(menuCadastro);
@@ -53,6 +68,11 @@ public class FrmMenu extends javax.swing.JFrame {
         menuPedido.setText("Pedido");
 
         menuItemEmitirPedido.setText("Emitir Pedido");
+        menuItemEmitirPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemEmitirPedidoActionPerformed(evt);
+            }
+        });
         menuPedido.add(menuItemEmitirPedido);
 
         jMenuBar1.add(menuPedido);
@@ -72,6 +92,22 @@ public class FrmMenu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void menuItemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemClientesActionPerformed
+        new FrmCliente().setVisible(true);
+    }//GEN-LAST:event_menuItemClientesActionPerformed
+
+    private void menuItemVendedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemVendedoresActionPerformed
+        new FrmVendedor().setVisible(true);
+    }//GEN-LAST:event_menuItemVendedoresActionPerformed
+
+    private void menuItemProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemProdutosActionPerformed
+        new FrmProduto().setVisible(true);
+    }//GEN-LAST:event_menuItemProdutosActionPerformed
+
+    private void menuItemEmitirPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEmitirPedidoActionPerformed
+
+    }//GEN-LAST:event_menuItemEmitirPedidoActionPerformed
 
     /**
      * @param args the command line arguments
