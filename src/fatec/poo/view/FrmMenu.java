@@ -123,7 +123,7 @@ public class FrmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemEmitirPedidoActionPerformed
 
     private void menuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSairActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_menuItemSairActionPerformed
 
     /**
