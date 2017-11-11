@@ -38,6 +38,7 @@ public class FrmMenu extends javax.swing.JFrame {
         menuItemEmitirPedido = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Controle de Vendas");
 
         menuCadastro.setText("Cadastro");
 
@@ -102,6 +103,7 @@ public class FrmMenu extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuItemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemClientesActionPerformed
@@ -161,7 +163,7 @@ public class FrmMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenuItem menuItemClientes;
     private javax.swing.JMenuItem menuItemEmitirPedido;
