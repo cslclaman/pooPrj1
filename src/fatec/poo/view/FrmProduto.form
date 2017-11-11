@@ -37,7 +37,7 @@
                               <Component id="txtCodigo1" min="-2" pref="80" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jTextField1" max="32767" attributes="0"/>
+                          <Component id="txtDescricao" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="19" pref="19" max="-2" attributes="0"/>
                   </Group>
@@ -47,11 +47,11 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jTextField2" min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="txtQtdeDisp" min="-2" pref="50" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="txtQntdDisp" min="-2" pref="59" max="-2" attributes="0"/>
+                              <Component id="txtPrecoUnit" min="-2" pref="59" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -64,11 +64,11 @@
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="btnSalvar" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton1" linkSize="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnIncluir" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton3" linkSize="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAlterar" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton2" linkSize="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnExcluir" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnSair" linkSize="1" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
@@ -88,13 +88,13 @@
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtDescricao" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
-                  <Component id="txtQntdDisp" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtPrecoUnit" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtQtdeDisp" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel4" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtEstoqMin" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -102,12 +102,12 @@
               <EmptySpace pref="35" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="jButton2" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnExcluir" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="btnSair" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton1" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnIncluir" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="btnSalvar" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jButton3" linkSize="2" min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="btnAlterar" linkSize="2" min="-2" pref="32" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -164,7 +164,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCodigo1ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtQntdDisp">
+    <Component class="javax.swing.JTextField" name="txtPrecoUnit">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -174,17 +174,17 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="txtDescricao">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField2">
+    <Component class="javax.swing.JTextField" name="txtQtdeDisp">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnIncluir">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/fatec/poo/view/icon/add.png"/>
@@ -193,7 +193,7 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btnExcluir">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/fatec/poo/view/icon/Eraser.png"/>
@@ -202,7 +202,7 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="btnAlterar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/fatec/poo/view/icon/Alterar.png"/>
