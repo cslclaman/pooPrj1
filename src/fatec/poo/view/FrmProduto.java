@@ -1,5 +1,11 @@
 package fatec.poo.view;
 
+import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoProduto;
+import fatec.poo.model.Produto;
+import java.text.DecimalFormat;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Airton Brasil 0030481611002
@@ -30,8 +36,8 @@ public class FrmProduto extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         btnSair = new javax.swing.JButton();
-        btnSalvar = new javax.swing.JButton();
-        txtCodigo1 = new javax.swing.JTextField();
+        btnConsultar = new javax.swing.JButton();
+        txtCodigo = new javax.swing.JTextField();
         txtPrecoUnit = new javax.swing.JTextField();
         txtEstoqMin = new javax.swing.JTextField();
         txtDescricao = new javax.swing.JTextField();
@@ -45,6 +51,9 @@ public class FrmProduto extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
@@ -66,12 +75,17 @@ public class FrmProduto extends javax.swing.JFrame {
             }
         });
 
-        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
-        btnSalvar.setText("Consultar");
-
-        txtCodigo1.addActionListener(new java.awt.event.ActionListener() {
+        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
+        btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodigo1ActionPerformed(evt);
+                btnConsultarActionPerformed(evt);
+            }
+        });
+
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
             }
         });
 
@@ -86,6 +100,11 @@ public class FrmProduto extends javax.swing.JFrame {
         btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnIncluir.setText("Incluir");
         btnIncluir.setEnabled(false);
+        btnIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncluirActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
@@ -107,7 +126,7 @@ public class FrmProduto extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtCodigo1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(txtDescricao))
                         .addGap(19, 19, 19))
@@ -129,7 +148,7 @@ public class FrmProduto extends javax.swing.JFrame {
                         .addContainerGap(27, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnSalvar)
+                        .addComponent(btnConsultar)
                         .addGap(18, 18, 18)
                         .addComponent(btnIncluir)
                         .addGap(18, 18, 18)
@@ -141,7 +160,7 @@ public class FrmProduto extends javax.swing.JFrame {
                         .addGap(38, 38, 38))))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAlterar, btnExcluir, btnIncluir, btnSair, btnSalvar});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAlterar, btnConsultar, btnExcluir, btnIncluir, btnSair});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,7 +168,7 @@ public class FrmProduto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtCodigo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -168,12 +187,12 @@ public class FrmProduto extends javax.swing.JFrame {
                         .addComponent(btnExcluir)
                         .addComponent(btnSair)
                         .addComponent(btnIncluir)
-                        .addComponent(btnSalvar))
+                        .addComponent(btnConsultar))
                     .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAlterar, btnExcluir, btnIncluir, btnSair, btnSalvar});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAlterar, btnConsultar, btnExcluir, btnIncluir, btnSair});
 
         pack();
         setLocationRelativeTo(null);
@@ -187,9 +206,98 @@ public class FrmProduto extends javax.swing.JFrame {
        dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
-    private void txtCodigo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigo1ActionPerformed
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigo1ActionPerformed
+    }//GEN-LAST:event_txtCodigoActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        try {
+            int codigo = Integer.parseInt(txtCodigo.getText());
+            produto = daoProduto.consultar(codigo);
+            if (produto == null){
+                btnConsultar.setEnabled(false);
+                btnIncluir.setEnabled(true);
+                
+                txtCodigo.setEnabled(false);
+                txtDescricao.setEnabled(true);
+                txtEstoqMin.setEnabled(true);
+                txtPrecoUnit.setEnabled(true);
+                txtQtdeDisp.setEnabled(true);
+                
+                txtDescricao.requestFocus();
+            } else {
+                btnConsultar.setEnabled(false);
+                btnAlterar.setEnabled(true);
+                btnExcluir.setEnabled(true);
+                
+                txtCodigo.setEnabled(false);
+                
+                txtDescricao.setEnabled(true);
+                txtDescricao.setText(produto.getDescricao());
+                
+                txtEstoqMin.setEnabled(true);
+                txtEstoqMin.setText(String.valueOf(produto.getEstoqueMin()));
+                
+                txtPrecoUnit.setEnabled(true);
+                txtPrecoUnit.setText(df.format(produto.getPrecoUnit()));
+                
+                txtQtdeDisp.setEnabled(true);
+                txtQtdeDisp.setText(String.valueOf(produto.getQtdeDisponivel()));
+                
+                txtDescricao.requestFocus();
+            }
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog(this, "O código do produto deve ser um número inteiro", "Aviso: valor inválido", JOptionPane.WARNING_MESSAGE);
+            txtCodigo.requestFocus();
+        }
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+        /*
+        Na operação Incluir deve ser instanciado um objeto da classe Produto que deve ser inserido na
+tabela de produto.
+        */
+        try {
+            int codigo = Integer.parseInt(txtCodigo.getText());
+            produto = new Produto(codigo, txtDescricao.getText());
+            produto.setPrecoUnit(Double.parseDouble(txtPrecoUnit.getText()));
+            produto.setEstoqueMin(Integer.parseInt(txtEstoqMin.getText()));
+            produto.setQtdeDisponivel(Integer.parseInt(txtQtdeDisp.getText()));
+            
+            daoProduto.inserir(produto);
+            
+            txtCodigo.setEnabled(true);
+            txtCodigo.setText("");
+            
+            txtDescricao.setEnabled(false);
+            txtDescricao.setText("");
+            
+            txtEstoqMin.setEnabled(false);
+            txtEstoqMin.setText("");
+            
+            txtPrecoUnit.setEnabled(false);
+            txtPrecoUnit.setText("");
+            
+            txtQtdeDisp.setEnabled(false);
+            txtQtdeDisp.setText("");
+            
+            btnConsultar.setEnabled(true);
+            btnIncluir.setEnabled(false);
+            
+            txtCodigo.requestFocus();
+            
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog(this, "Valor incorreto informado em algum campo", "Aviso: valor inválido", JOptionPane.WARNING_MESSAGE);
+            txtCodigo.requestFocus();
+        }
+    }//GEN-LAST:event_btnIncluirActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        conexao = new Conexao("BD1611009","dont100nha");
+        conexao.setDriver("oracle.jdbc.driver.OracleDriver");
+        conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
+        daoProduto = new DaoProduto(conexao.conectar());
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -229,19 +337,23 @@ public class FrmProduto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnIncluir;
     private javax.swing.JButton btnSair;
-    private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField txtCodigo1;
+    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtEstoqMin;
     private javax.swing.JTextField txtPrecoUnit;
     private javax.swing.JTextField txtQtdeDisp;
     // End of variables declaration//GEN-END:variables
+    private DaoProduto daoProduto = null;
+    private Produto produto = null;
+    private Conexao conexao = null;
+    private DecimalFormat df = new DecimalFormat("0.00");
 }
