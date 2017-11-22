@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fatec.poo.view;
 
 /**
  *
- * @author 0030481611009
+ * @author Airton Brasil 0030481611002
+ * @author Allan Flores 0030481611001
+ * @author Caique Siqueira 0030481611009
  */
 public class FrmVendedor extends javax.swing.JFrame {
 
@@ -55,7 +52,6 @@ public class FrmVendedor extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Vendedor");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("CPF");
 
         try {
@@ -64,72 +60,59 @@ public class FrmVendedor extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Nome");
 
         txtNome.setEnabled(false);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Endereço");
 
         txtEndereco.setEnabled(false);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Cidade");
 
         txtCidade.setEnabled(false);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setText("UF");
 
         cmbUF.setEnabled(false);
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("CEP");
 
         txtCEP.setEnabled(false);
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setText("Telefone");
 
         txtDDD.setEnabled(false);
 
         txtTelefone.setEnabled(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Taxa de Comissão");
 
         txtComissao.setEnabled(false);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Salário base:");
 
         txtSalarioBase.setEnabled(false);
 
-        btnConsultar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setMnemonic('C');
         btnConsultar.setText("Consultar");
 
-        btnIncluir.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnIncluir.setMnemonic('C');
         btnIncluir.setText("Incluir");
         btnIncluir.setEnabled(false);
 
-        btnAlterar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setMnemonic('A');
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
 
-        btnExcluir.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setMnemonic('E');
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
 
-        btnSair.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setMnemonic('S');
         btnSair.setText("Sair");
@@ -192,7 +175,7 @@ public class FrmVendedor extends javax.swing.JFrame {
                                         .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(txtComissao, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAlterar, btnConsultar, btnExcluir, btnIncluir, btnSair});
