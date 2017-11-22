@@ -76,4 +76,35 @@ public class Pessoa {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+    
+    public static boolean cpfValido(String cpf){
+        int[] numeros = new int[11];
+        int verif1, verif2, soma;
+        if (cpf.length() != 11){
+            return false;
+        } else {
+            for (int c = 0; c < 11; c++){
+                numeros[c] = Integer.parseInt(cpf.substring(c,c+1));
+            }
+            soma = 0;
+            for (int c = 0; c < 9; c++){
+                 soma += numeros[c] * (c + 1);
+            }
+            verif1 = (soma % 11) % 10 ;
+            if (numeros[9] != verif1){
+                return false;
+            } else {
+                soma = 0;
+                for (int c = 0, d = 11; c < 10; c++, d--){
+                    soma += numeros[c] * d;
+                }
+                verif2 = ((soma * 10) % 11) % 10;
+                if (numeros[10] != verif2){
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        }
+    }
 }
