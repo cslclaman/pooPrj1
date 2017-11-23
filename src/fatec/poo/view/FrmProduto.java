@@ -113,6 +113,11 @@ public class FrmProduto extends javax.swing.JFrame {
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -232,7 +237,6 @@ public class FrmProduto extends javax.swing.JFrame {
                 
                 txtCodigo.setEnabled(false);
                 
-                txtDescricao.setEnabled(true);
                 txtDescricao.setText(produto.getDescricao());
                 
                 txtEstoqMin.setEnabled(true);
@@ -244,7 +248,7 @@ public class FrmProduto extends javax.swing.JFrame {
                 txtQtdeDisp.setEnabled(true);
                 txtQtdeDisp.setText(String.valueOf(produto.getQtdeDisponivel()));
                 
-                txtDescricao.requestFocus();
+                txtEstoqMin.requestFocus();
             }
         } catch (Exception ex){
             JOptionPane.showMessageDialog(this, "O código do produto deve ser um número inteiro", "Aviso: valor inválido", JOptionPane.WARNING_MESSAGE);
@@ -253,10 +257,6 @@ public class FrmProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
-        /*
-        Na operação Incluir deve ser instanciado um objeto da classe Produto que deve ser inserido na
-tabela de produto.
-        */
         try {
             int codigo = Integer.parseInt(txtCodigo.getText());
             produto = new Produto(codigo, txtDescricao.getText());
@@ -298,6 +298,18 @@ tabela de produto.
         conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
         daoProduto = new DaoProduto(conexao.conectar());
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        /*
+        Na operação Alterar as alterações devem ser feitas a partir do objeto produto instanciado que
+deve ser atualizado na tabela de produtos.
+        */
+        if (JOptionPane.showConfirmDialog(this, "Confirma Alteração?") == JOptionPane.OK_OPTION){
+            produto.setPrecoUnit(Double.parseDouble(txtPrecoUnit.getText()));
+            produto.setEstoqueMin(Integer.parseInt(txtEstoqMin.getText()));
+            produto.setQtdeDisponivel(Integer.parseInt(txtQtdeDisp.getText()));
+        } 
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments
