@@ -250,15 +250,24 @@ public class FrmVendedor extends javax.swing.JFrame {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         Pessoa p;
-        if(!Pessoa.cpfValido(ftxCPF.getText())){
+        if(!Pessoa.cpfValido(ftxCPF.getText().replace(".", "").replace("-",""))){
             JOptionPane.showMessageDialog(null, "CPF Invalido");
             ftxCPF.requestFocus();
         }else{
-            vendedor = daoVendedor.consultar(ftxCPF.getText());
+            vendedor = daoVendedor.consultar(ftxCPF.getText().replace(".", "").replace("-",""));
             btnConsultar.setEnabled(false);
             ftxCPF.setEnabled(false);
             txtNome.setEnabled(true);
             txtNome.requestFocus();
+            txtEndereco.setEnabled(true);
+            txtCidade.setEnabled(true);
+            txtDDD.setEnabled(true);
+            txtTelefone.setEnabled(true);
+            txtSalarioBase.setEnabled(true);
+            txtComissao.setEnabled(true);
+            txtCEP.setEnabled(true);
+            cmbUF.setEnabled(true);
+            
             if(vendedor == null){
                 btnIncluir.setEnabled(true);
             }else{
