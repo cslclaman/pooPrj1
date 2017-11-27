@@ -88,6 +88,7 @@ public class FrmVendedor extends javax.swing.JFrame {
 
         jLabel8.setText("UF");
 
+        cmbUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO" }));
         cmbUF.setEnabled(false);
 
         jLabel7.setText("CEP");
