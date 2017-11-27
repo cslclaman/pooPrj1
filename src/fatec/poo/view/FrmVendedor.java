@@ -396,8 +396,6 @@ public class FrmVendedor extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         try {
-            
-            
             if (JOptionPane.showConfirmDialog(this, "Confirma Alteração?") == JOptionPane.OK_OPTION){
                 vendedor.setSalarioBase(Double.parseDouble(txtSalarioBase.getText()));
                 vendedor.setCep(txtCEP.getText());

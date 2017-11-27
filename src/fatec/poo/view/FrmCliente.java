@@ -48,7 +48,7 @@ public class FrmCliente extends javax.swing.JFrame {
         txtNome = new javax.swing.JTextField();
         txtCEP = new javax.swing.JTextField();
         txtLimiteDispo = new javax.swing.JTextField();
-        cmbUF = new javax.swing.JComboBox<>();
+        cmbUF = new javax.swing.JComboBox<String>();
         btnConsultar = new javax.swing.JButton();
         btnIncluir = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
@@ -101,7 +101,7 @@ public class FrmCliente extends javax.swing.JFrame {
 
         txtLimiteDispo.setEnabled(false);
 
-        cmbUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO" }));
+        cmbUF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO" }));
         cmbUF.setEnabled(false);
 
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
@@ -124,10 +124,20 @@ public class FrmCliente extends javax.swing.JFrame {
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         try {
             ftxCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -280,7 +290,6 @@ public class FrmCliente extends javax.swing.JFrame {
 
         if(Pessoa.cpfValido(ftxCPF.getText().replace(".", "").replace("-", ""))){
             cliente = daoCliente.consultar(ftxCPF.getText().replace(".", "").replace("-", ""));
-            System.out.println(cliente.getCpf());
             btnConsultar.setEnabled(false);
             ftxCPF.setEnabled(false);
             txtNome.setEnabled(true);
@@ -305,6 +314,8 @@ public class FrmCliente extends javax.swing.JFrame {
                 txtTelefone.setText(cliente.getTelefone());
                 txtLimiteCredito.setText(String.valueOf(cliente.getLimiteCred()));
                 txtLimiteDispo.setText(String.valueOf(cliente.getLimiteDisp()));
+                cmbUF.setSelectedItem(cliente.getUf());
+                txtCEP.setText(cliente.getCep());
                 btnAlterar.setEnabled(true);
                 btnExcluir.setEnabled(true);
             }
@@ -317,13 +328,136 @@ public class FrmCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
-        
+    try {
+            cliente = new Cliente(ftxCPF.getText().replace(".", "").replace("-", ""), txtNome.getText(), Double.parseDouble(txtLimiteCredito.getText()));
+            cliente.setCep(txtCEP.getText());
+            cliente.setCidade(txtCidade.getText());
+            cliente.setLimiteDisp(Double.parseDouble(txtLimiteDispo.getText()));
+            cliente.setDdd(txtDDD.getText());
+            cliente.setEndereco(txtEndereco.getText());
+            cliente.setTelefone(txtTelefone.getText());
+            cliente.setUf(String.valueOf(cmbUF.getSelectedItem()));
+
+            daoCliente.inserir(cliente);
+
+            btnConsultar.setEnabled(true);
+            ftxCPF.setEnabled(true);
+            ftxCPF.setText("");
+            btnIncluir.setEnabled(false);
+            txtNome.setEnabled(false);
+            ftxCPF.requestFocus();
+            txtEndereco.setEnabled(false);
+            txtCidade.setEnabled(false);
+            txtDDD.setEnabled(false);
+            txtTelefone.setEnabled(false);
+            txtLimiteCredito.setEnabled(false);
+            txtLimiteDispo.setEnabled(false);
+            txtCEP.setEnabled(false);
+            cmbUF.setEnabled(false);
+            txtNome.setText("");
+            txtEndereco.setText("");
+            txtCidade.setText("");
+            txtDDD.setText("");
+            txtTelefone.setText("");
+            txtLimiteCredito.setText("");
+            txtLimiteDispo.setText("");
+            txtCEP.setText("");
+            cmbUF.setSelectedItem("");
+            
+            
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Valor incorreto informado em algum campo", "Aviso: valor inválido", JOptionPane.WARNING_MESSAGE);
+            ftxCPF.requestFocus();
+        }
     }//GEN-LAST:event_btnIncluirActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         conexao.fecharConexao();
         dispose();
     }//GEN-LAST:event_formWindowClosing
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+         try {
+            if (JOptionPane.showConfirmDialog(this, "Confirma Alteração?") == JOptionPane.OK_OPTION){
+                cliente.setLimiteDisp(Double.parseDouble(txtLimiteCredito.getText()));
+                cliente.setCep(txtCEP.getText());
+                cliente.setCidade(txtCidade.getText());
+                cliente.setLimiteDisp(Double.parseDouble(txtLimiteDispo.getText()));
+                cliente.setDdd(txtDDD.getText());
+                cliente.setEndereco(txtEndereco.getText());
+                cliente.setTelefone(txtTelefone.getText());
+                cliente.setUf(String.valueOf(cmbUF.getSelectedItem()));
+
+                daoCliente.alterar(cliente);
+            }
+
+            btnConsultar.setEnabled(true);
+            ftxCPF.setEnabled(true);
+            ftxCPF.setText("");
+            btnIncluir.setEnabled(false);
+            txtNome.setEnabled(false);
+            ftxCPF.requestFocus();
+            txtEndereco.setEnabled(false);
+            txtCidade.setEnabled(false);
+            txtDDD.setEnabled(false);
+            txtTelefone.setEnabled(false);
+            txtLimiteCredito.setEnabled(false);
+            txtLimiteDispo.setEnabled(false);
+            txtCEP.setEnabled(false);
+            cmbUF.setEnabled(false);
+            txtNome.setText("");
+            txtEndereco.setText("");
+            txtCidade.setText("");
+            txtDDD.setText("");
+            txtTelefone.setText("");
+            txtLimiteCredito.setText("");
+            txtLimiteDispo.setText("");
+            txtCEP.setText("");
+            cmbUF.setSelectedItem("");
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog(this, ex.toString(), "Aviso - valor inválido", JOptionPane.WARNING_MESSAGE);
+            ftxCPF.requestFocus();
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+         try {
+            if (JOptionPane.showConfirmDialog(this, "Confirma Exclusão?") == JOptionPane.OK_OPTION) {
+                daoCliente.excluir(cliente);
+            }
+            btnConsultar.setEnabled(true);
+            ftxCPF.setEnabled(true);
+            ftxCPF.setText("");
+            btnIncluir.setEnabled(false);
+            txtNome.setEnabled(false);
+            ftxCPF.requestFocus();
+            txtEndereco.setEnabled(false);
+            txtCidade.setEnabled(false);
+            txtDDD.setEnabled(false);
+            txtTelefone.setEnabled(false);
+            txtLimiteCredito.setEnabled(false);
+            txtLimiteDispo.setEnabled(false);
+            txtCEP.setEnabled(false);
+            cmbUF.setEnabled(false);
+            txtNome.setText("");
+            txtEndereco.setText("");
+            txtCidade.setText("");
+            txtDDD.setText("");
+            txtTelefone.setText("");
+            txtLimiteCredito.setText("");
+            txtLimiteDispo.setText("");
+            txtCEP.setText("");
+            cmbUF.setSelectedItem("");
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Valor incorreto informado em algum campo", "Aviso: valor inválido", JOptionPane.WARNING_MESSAGE);
+            ftxCPF.requestFocus();
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments
