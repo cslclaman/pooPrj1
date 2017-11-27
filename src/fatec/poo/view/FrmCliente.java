@@ -1,5 +1,12 @@
 package fatec.poo.view;
 
+import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoCliente;
+import fatec.poo.model.Cliente;
+import fatec.poo.model.Pessoa;
+import java.text.DecimalFormat;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Airton Brasil 0030481611002
@@ -51,6 +58,11 @@ public class FrmCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Cliente");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setText("CPF");
 
@@ -91,10 +103,20 @@ public class FrmCliente extends javax.swing.JFrame {
 
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/save.png"))); // NOI18N
         btnIncluir.setText("Incluir");
         btnIncluir.setEnabled(false);
+        btnIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncluirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
@@ -170,7 +192,7 @@ public class FrmCliente extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(ftxCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 39, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addContainerGap())))
@@ -242,6 +264,57 @@ public class FrmCliente extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        conexao = new Conexao("Allan","1234");
+        conexao.setDriver("oracle.jdbc.driver.OracleDriver");
+        conexao.setConnectionString("jdbc:oracle:thin:@localhost:1521:xe");
+        daoCliente = new DaoCliente(conexao.conectar());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+
+        if(Pessoa.cpfValido(ftxCPF.getText().replace(".", "").replace("-", ""))){
+            cliente = daoCliente.consultar(ftxCPF.getText().replace(".", "").replace("-", ""));
+            System.out.println(cliente.getCpf());
+            btnConsultar.setEnabled(false);
+            ftxCPF.setEnabled(false);
+            txtNome.setEnabled(true);
+            txtNome.requestFocus();
+            txtEndereco.setEnabled(true);
+            txtCidade.setEnabled(true);
+            txtDDD.setEnabled(true);
+            txtTelefone.setEnabled(true);
+            txtLimiteCredito.setEnabled(true);
+            txtLimiteDispo.setEnabled(true);
+            txtCEP.setEnabled(true);
+            cmbUF.setEnabled(true);
+            
+            if(cliente == null){
+                btnIncluir.setEnabled(true);
+            }
+            else{
+                txtNome.setText(cliente.getNome());
+                txtEndereco.setText(cliente.getEndereco());
+                txtCidade.setText(cliente.getCidade());
+                txtDDD.setText(cliente.getDdd());
+                txtTelefone.setText(cliente.getTelefone());
+                txtLimiteCredito.setText(String.valueOf(cliente.getLimiteCred()));
+                txtLimiteDispo.setText(String.valueOf(cliente.getLimiteDisp()));
+                btnAlterar.setEnabled(true);
+                btnExcluir.setEnabled(true);
+            }
+            
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "CPF Inválido");
+            ftxCPF.requestFocus();
+        }
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+        
+    }//GEN-LAST:event_btnIncluirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -303,4 +376,8 @@ public class FrmCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
+    private Conexao conexao = null;
+    private DecimalFormat df = new DecimalFormat("0.00");
+    private DaoCliente daoCliente = null;
+    private Cliente cliente = null;
 }

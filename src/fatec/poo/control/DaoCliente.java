@@ -51,7 +51,7 @@ public class DaoCliente {
         Cliente cli = null;
         PreparedStatement ps = null;
         try{
-            ps = conn.prepareStatement("SELECT * FROM Cliente WHERE = ?");
+            ps = conn.prepareStatement("SELECT * FROM tp_cliente WHERE cpf = ?");
             ps.setString(1, cpf);
             ResultSet rs = ps.executeQuery();
             
