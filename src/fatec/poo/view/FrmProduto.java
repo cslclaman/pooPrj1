@@ -103,6 +103,11 @@ public class FrmProduto extends javax.swing.JFrame {
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
@@ -291,16 +296,70 @@ public class FrmProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        /*
-        Na operação Alterar as alterações devem ser feitas a partir do objeto produto instanciado que
-deve ser atualizado na tabela de produtos.
-        */
-        if (JOptionPane.showConfirmDialog(this, "Confirma Alteração?") == JOptionPane.OK_OPTION){
-            produto.setPrecoUnit(Double.parseDouble(txtPrecoUnit.getText()));
-            produto.setEstoqueMin(Integer.parseInt(txtEstoqMin.getText()));
-            produto.setQtdeDisponivel(Integer.parseInt(txtQtdeDisp.getText()));
-        } 
+        try {
+            double preco = df.parse(txtPrecoUnit.getText()).doubleValue();
+            
+            if (JOptionPane.showConfirmDialog(this, "Confirma Alteração?") == JOptionPane.OK_OPTION){
+                produto.setPrecoUnit(preco);
+                produto.setEstoqueMin(Integer.parseInt(txtEstoqMin.getText()));
+                produto.setQtdeDisponivel(Integer.parseInt(txtQtdeDisp.getText()));
+                daoProduto.alterar(produto);
+            }
+
+            txtCodigo.setEnabled(true);
+            txtCodigo.setText("");
+
+            txtDescricao.setEnabled(false);
+            txtDescricao.setText("");
+
+            txtEstoqMin.setEnabled(false);
+            txtEstoqMin.setText("");
+
+            txtPrecoUnit.setEnabled(false);
+            txtPrecoUnit.setText("");
+
+            txtQtdeDisp.setEnabled(false);
+            txtQtdeDisp.setText("");
+
+            btnConsultar.setEnabled(true);
+
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+
+            txtCodigo.requestFocus();
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog(this, ex.toString(), "Erro", JOptionPane.ERROR_MESSAGE);
+            txtCodigo.requestFocus();
+        }
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if (JOptionPane.showConfirmDialog(this, "Confirma Exclusão?") == JOptionPane.OK_OPTION){
+            daoProduto.excluir(produto);
+        }
+        
+        txtCodigo.setEnabled(true);
+        txtCodigo.setText("");
+
+        txtDescricao.setEnabled(false);
+        txtDescricao.setText("");
+
+        txtEstoqMin.setEnabled(false);
+        txtEstoqMin.setText("");
+
+        txtPrecoUnit.setEnabled(false);
+        txtPrecoUnit.setText("");
+
+        txtQtdeDisp.setEnabled(false);
+        txtQtdeDisp.setText("");
+
+        btnConsultar.setEnabled(true);
+        
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+
+        txtCodigo.requestFocus();
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments
