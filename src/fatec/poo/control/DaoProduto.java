@@ -23,7 +23,7 @@ public class DaoProduto {
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("INSERT INTO TP_Produto" +
-                    "(Codigo, Descricao,Qtde_Disponivel,Preco_Unit,Estoque_Min)"+
+                    " (Codigo, Descricao,Qtde_Disponivel,Preco_Unit,Estoque_Min)"+
                     " VALUES(?,?,?,?,?)");
             ps.setInt(1, produto.getCodigo());
             ps.setString(2, produto.getDescricao());
@@ -41,7 +41,7 @@ public class DaoProduto {
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("UPDATE TP_Produto" +
-                    "set Descricao = ?,Qtde_Disponivel = ?,Preco_Unit = ?,Estoque_Min = ?"+
+                    " set Descricao = ?,Qtde_Disponivel = ?,Preco_Unit = ?,Estoque_Min = ?"+
                     " WHERE Codigo = ?");
             
             ps.setInt(5, produto.getCodigo());
