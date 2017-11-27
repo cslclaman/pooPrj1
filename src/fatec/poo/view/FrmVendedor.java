@@ -329,7 +329,7 @@ public class FrmVendedor extends javax.swing.JFrame {
 
             btnConsultar.setEnabled(true);
             ftxCPF.setEnabled(true);
-            ftxCPF.setText("   .   .   -  ");
+            ftxCPF.setText("");
             btnIncluir.setEnabled(false);
             txtNome.setEnabled(false);
             ftxCPF.requestFocus();
@@ -366,7 +366,7 @@ public class FrmVendedor extends javax.swing.JFrame {
             }
             btnConsultar.setEnabled(true);
             ftxCPF.setEnabled(true);
-            ftxCPF.setText("   .   .   -  ");
+            ftxCPF.setText("");
             btnIncluir.setEnabled(false);
             txtNome.setEnabled(false);
             ftxCPF.requestFocus();
@@ -413,7 +413,7 @@ public class FrmVendedor extends javax.swing.JFrame {
 
             btnConsultar.setEnabled(true);
             ftxCPF.setEnabled(true);
-            ftxCPF.setText("   .   .   -  ");
+            ftxCPF.setText("");
             btnIncluir.setEnabled(false);
             txtNome.setEnabled(false);
             ftxCPF.requestFocus();
