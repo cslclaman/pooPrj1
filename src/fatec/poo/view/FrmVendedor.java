@@ -1,5 +1,11 @@
 package fatec.poo.view;
 
+import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoVendedor;
+import fatec.poo.model.Pessoa;
+import fatec.poo.model.Vendedor;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Airton Brasil 0030481611002
@@ -33,7 +39,7 @@ public class FrmVendedor extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtCidade = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        cmbUF = new javax.swing.JComboBox<>();
+        cmbUF = new javax.swing.JComboBox<String>();
         jLabel7 = new javax.swing.JLabel();
         txtCEP = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -51,6 +57,11 @@ public class FrmVendedor extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Vendedor");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel3.setText("CPF");
 
@@ -97,6 +108,11 @@ public class FrmVendedor extends javax.swing.JFrame {
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setMnemonic('C');
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnIncluir.setMnemonic('C');
@@ -232,6 +248,34 @@ public class FrmVendedor extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        Pessoa p;
+        if(!Pessoa.cpfValido(ftxCPF.getText())){
+            JOptionPane.showMessageDialog(null, "CPF Invalido");
+            ftxCPF.requestFocus();
+        }else{
+            vendedor = daoVendedor.consultar(ftxCPF.getText());
+            btnConsultar.setEnabled(false);
+            ftxCPF.setEnabled(false);
+            txtNome.setEnabled(true);
+            txtNome.requestFocus();
+            if(vendedor == null){
+                btnIncluir.setEnabled(true);
+            }else{
+                btnAlterar.setEnabled(true);
+                btnExcluir.setEnabled(true);
+            }
+        
+        }
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+       conexao = new Conexao("BD1611009","dont100nha");
+       conexao.setDriver("oracle.jdbc.driver.OracleDriver");
+       conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
+       daoVendedor = new DaoVendedor(conexao.conectar());
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
@@ -293,4 +337,8 @@ public class FrmVendedor extends javax.swing.JFrame {
     private javax.swing.JTextField txtSalarioBase;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
+    private DaoVendedor daoVendedor = null;
+    private Vendedor vendedor = null;
+    private Conexao conexao = null;
+
 }
