@@ -73,7 +73,6 @@ public class DaoVendedor {
             ResultSet rs = ps.executeQuery();
             
             if (rs.next() == true) {
-                System.out.println("Achou vendedor CPF " + cpf);
                 vendedor = new Vendedor (cpf, rs.getString("nome"), rs.getDouble("Salario_base"));
                 vendedor.setCep(rs.getString("cep"));
                 vendedor.setCidade(rs.getString("cidade"));
@@ -82,9 +81,7 @@ public class DaoVendedor {
                 vendedor.setTelefone(rs.getString("telefone"));
                 vendedor.setUf(rs.getString("uf"));
                 vendedor.setComissao(rs.getDouble("Comissao"));
-            } else {
-                System.out.println("Vendedor CPF " + cpf + "não encontrado");
-            }
+            } 
         }
         catch(SQLException ex){
             System.out.println(ex.toString());
