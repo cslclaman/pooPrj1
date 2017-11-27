@@ -39,7 +39,7 @@ public class FrmVendedor extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtCidade = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        cmbUF = new javax.swing.JComboBox<String>();
+        cmbUF = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         txtCEP = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -118,16 +118,31 @@ public class FrmVendedor extends javax.swing.JFrame {
         btnIncluir.setMnemonic('C');
         btnIncluir.setText("Incluir");
         btnIncluir.setEnabled(false);
+        btnIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncluirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setMnemonic('A');
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setMnemonic('E');
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setMnemonic('S');
@@ -249,12 +264,11 @@ public class FrmVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        Pessoa p;
-        if(!Pessoa.cpfValido(ftxCPF.getText().replace(".", "").replace("-",""))){
+        if (!Pessoa.cpfValido(ftxCPF.getText().replace(".", "").replace("-", ""))) {
             JOptionPane.showMessageDialog(null, "CPF Invalido");
             ftxCPF.requestFocus();
-        }else{
-            vendedor = daoVendedor.consultar(ftxCPF.getText().replace(".", "").replace("-",""));
+        } else {
+            vendedor = daoVendedor.consultar(ftxCPF.getText().replace(".", "").replace("-", ""));
             btnConsultar.setEnabled(false);
             ftxCPF.setEnabled(false);
             txtNome.setEnabled(true);
@@ -267,23 +281,161 @@ public class FrmVendedor extends javax.swing.JFrame {
             txtComissao.setEnabled(true);
             txtCEP.setEnabled(true);
             cmbUF.setEnabled(true);
-            
-            if(vendedor == null){
+
+            if (vendedor == null) {
                 btnIncluir.setEnabled(true);
-            }else{
+            } else {
                 btnAlterar.setEnabled(true);
                 btnExcluir.setEnabled(true);
+
+                txtNome.setText(vendedor.getNome());
+                txtEndereco.setText(vendedor.getEndereco());
+                txtCidade.setText(vendedor.getCidade());
+                txtDDD.setText(vendedor.getDdd());
+                txtTelefone.setText(vendedor.getTelefone());
+                txtSalarioBase.setText(String.valueOf(vendedor.getSalarioBase()));
+                txtComissao.setText(String.valueOf(vendedor.getComissao()));
+                txtCEP.setText(vendedor.getCep());
+                cmbUF.setSelectedItem(vendedor.getUf());
             }
-        
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-       conexao = new Conexao("BD1611009","dont100nha");
-       conexao.setDriver("oracle.jdbc.driver.OracleDriver");
-       conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
-       daoVendedor = new DaoVendedor(conexao.conectar());
+        conexao = new Conexao("BD1611009", "dont100nha");
+        conexao.setDriver("oracle.jdbc.driver.OracleDriver");
+        conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
+        daoVendedor = new DaoVendedor(conexao.conectar());
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+        try {
+            vendedor = new Vendedor(ftxCPF.getText().replace(".", "").replace("-", ""), txtNome.getText(), Double.parseDouble(txtSalarioBase.getText()));
+            vendedor.setCep(txtCEP.getText());
+            vendedor.setCidade(txtCidade.getText());
+            vendedor.setComissao(Double.parseDouble(txtComissao.getText()));
+            vendedor.setDdd(txtDDD.getText());
+            vendedor.setEndereco(txtEndereco.getText());
+            vendedor.setTelefone(txtTelefone.getText());
+            vendedor.setUf(String.valueOf(cmbUF.getSelectedItem()));
+
+            daoVendedor.inserir(vendedor);
+
+            btnConsultar.setEnabled(true);
+            ftxCPF.setEnabled(true);
+            ftxCPF.setText("   .   .   -  ");
+            btnIncluir.setEnabled(false);
+            txtNome.setEnabled(false);
+            ftxCPF.requestFocus();
+            txtEndereco.setEnabled(false);
+            txtCidade.setEnabled(false);
+            txtDDD.setEnabled(false);
+            txtTelefone.setEnabled(false);
+            txtSalarioBase.setEnabled(false);
+            txtComissao.setEnabled(false);
+            txtCEP.setEnabled(false);
+            cmbUF.setEnabled(false);
+            txtNome.setText("");
+            txtEndereco.setText("");
+            txtCidade.setText("");
+            txtDDD.setText("");
+            txtTelefone.setText("");
+            txtSalarioBase.setText("");
+            txtComissao.setText("");
+            txtCEP.setText("");
+            cmbUF.setSelectedItem("");
+            
+            
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Valor incorreto informado em algum campo", "Aviso: valor inválido", JOptionPane.WARNING_MESSAGE);
+            ftxCPF.requestFocus();
+        }
+    }//GEN-LAST:event_btnIncluirActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        try {
+            if (JOptionPane.showConfirmDialog(this, "Confirma Exclusão?") == JOptionPane.OK_OPTION) {
+                daoVendedor.excluir(vendedor);
+            }
+            btnConsultar.setEnabled(true);
+            ftxCPF.setEnabled(true);
+            ftxCPF.setText("   .   .   -  ");
+            btnIncluir.setEnabled(false);
+            txtNome.setEnabled(false);
+            ftxCPF.requestFocus();
+            txtEndereco.setEnabled(false);
+            txtCidade.setEnabled(false);
+            txtDDD.setEnabled(false);
+            txtTelefone.setEnabled(false);
+            txtSalarioBase.setEnabled(false);
+            txtComissao.setEnabled(false);
+            txtCEP.setEnabled(false);
+            cmbUF.setEnabled(false);
+            txtNome.setText("");
+            txtEndereco.setText("");
+            txtCidade.setText("");
+            txtDDD.setText("");
+            txtTelefone.setText("");
+            txtSalarioBase.setText("");
+            txtComissao.setText("");
+            txtCEP.setText("");
+            cmbUF.setSelectedItem("");
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Valor incorreto informado em algum campo", "Aviso: valor inválido", JOptionPane.WARNING_MESSAGE);
+            ftxCPF.requestFocus();
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        try {
+            
+            
+            if (JOptionPane.showConfirmDialog(this, "Confirma Alteração?") == JOptionPane.OK_OPTION){
+                vendedor.setSalarioBase(Double.parseDouble(txtSalarioBase.getText()));
+                vendedor.setCep(txtCEP.getText());
+                vendedor.setCidade(txtCidade.getText());
+                vendedor.setComissao(Double.parseDouble(txtComissao.getText()));
+                vendedor.setDdd(txtDDD.getText());
+                vendedor.setEndereco(txtEndereco.getText());
+                vendedor.setTelefone(txtTelefone.getText());
+                vendedor.setUf(String.valueOf(cmbUF.getSelectedItem()));
+
+                daoVendedor.alterar(vendedor);
+            }
+
+            btnConsultar.setEnabled(true);
+            ftxCPF.setEnabled(true);
+            ftxCPF.setText("   .   .   -  ");
+            btnIncluir.setEnabled(false);
+            txtNome.setEnabled(false);
+            ftxCPF.requestFocus();
+            txtEndereco.setEnabled(false);
+            txtCidade.setEnabled(false);
+            txtDDD.setEnabled(false);
+            txtTelefone.setEnabled(false);
+            txtSalarioBase.setEnabled(false);
+            txtComissao.setEnabled(false);
+            txtCEP.setEnabled(false);
+            cmbUF.setEnabled(false);
+            txtNome.setText("");
+            txtEndereco.setText("");
+            txtCidade.setText("");
+            txtDDD.setText("");
+            txtTelefone.setText("");
+            txtSalarioBase.setText("");
+            txtComissao.setText("");
+            txtCEP.setText("");
+            cmbUF.setSelectedItem("");
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog(this, ex.toString(), "Aviso - valor inválido", JOptionPane.WARNING_MESSAGE);
+            ftxCPF.requestFocus();
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments
