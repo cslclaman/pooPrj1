@@ -4,6 +4,7 @@ import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoProduto;
 import fatec.poo.model.Produto;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import javax.swing.JOptionPane;
 
 /**
@@ -245,10 +246,13 @@ public class FrmProduto extends javax.swing.JFrame {
                 
                 txtEstoqMin.requestFocus();
             }
-        } catch (Exception ex){
-            JOptionPane.showMessageDialog(this, "O código do produto deve ser um número inteiro", "Aviso: valor inválido", JOptionPane.WARNING_MESSAGE);
+        } catch (NumberFormatException ex){
+            JOptionPane.showMessageDialog(this, ex.toString(), "Aviso - valor inválido digitado", JOptionPane.WARNING_MESSAGE);
             txtCodigo.requestFocus();
-        }
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog(this, ex.toString(), "Erro", JOptionPane.ERROR_MESSAGE);
+            txtCodigo.requestFocus();
+        } 
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
@@ -282,8 +286,11 @@ public class FrmProduto extends javax.swing.JFrame {
             
             txtCodigo.requestFocus();
             
+        } catch (NumberFormatException ex){
+            JOptionPane.showMessageDialog(this, ex.toString(), "Aviso - valor inválido", JOptionPane.WARNING_MESSAGE);
+            txtPrecoUnit.requestFocus();
         } catch (Exception ex){
-            JOptionPane.showMessageDialog(this, "Valor incorreto informado em algum campo", "Aviso: valor inválido", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, ex.toString(), "Erro", JOptionPane.ERROR_MESSAGE);
             txtCodigo.requestFocus();
         }
     }//GEN-LAST:event_btnIncluirActionPerformed
@@ -327,6 +334,9 @@ public class FrmProduto extends javax.swing.JFrame {
             btnExcluir.setEnabled(false);
 
             txtCodigo.requestFocus();
+        } catch (NumberFormatException | ParseException ex){
+            JOptionPane.showMessageDialog(this, ex.toString(), "Aviso - valor inválido", JOptionPane.WARNING_MESSAGE);
+            txtPrecoUnit.requestFocus();
         } catch (Exception ex){
             JOptionPane.showMessageDialog(this, ex.toString(), "Erro", JOptionPane.ERROR_MESSAGE);
             txtCodigo.requestFocus();
