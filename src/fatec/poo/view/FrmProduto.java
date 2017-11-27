@@ -300,7 +300,8 @@ public class FrmProduto extends javax.swing.JFrame {
         //conexao = new Conexao("BD1611009","dont100nha");
         conexao = new Conexao("appuser","abc1234");
         conexao.setDriver("oracle.jdbc.driver.OracleDriver");
-        conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
+        //conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
+        conexao.setConnectionString("jdbc:oracle:thin:@localhost:1521:xe");
         daoProduto = new DaoProduto(conexao.conectar());
     }//GEN-LAST:event_formWindowOpened
 
