@@ -83,12 +83,6 @@ public class FrmProduto extends javax.swing.JFrame {
             }
         });
 
-        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodigoActionPerformed(evt);
-            }
-        });
-
         txtPrecoUnit.setEnabled(false);
 
         txtEstoqMin.setEnabled(false);
@@ -211,10 +205,6 @@ public class FrmProduto extends javax.swing.JFrame {
        dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
-    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigoActionPerformed
-
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         try {
             int codigo = Integer.parseInt(txtCodigo.getText());
@@ -282,6 +272,7 @@ public class FrmProduto extends javax.swing.JFrame {
             txtQtdeDisp.setText("");
             
             btnConsultar.setEnabled(true);
+            
             btnIncluir.setEnabled(false);
             
             txtCodigo.requestFocus();
