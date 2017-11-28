@@ -79,7 +79,7 @@ public class Pessoa {
     
     public static boolean cpfValido(String cpf){
         int[] numeros = new int[11];
-        int verif1, verif2, soma;
+        int verif1, verif2, soma, contIgual;
         if (cpf.length() != 11){
             return false;
         } else {
@@ -89,6 +89,15 @@ public class Pessoa {
                 } catch (NumberFormatException ex){
                     return false;
                 }
+            }
+            contIgual = 0;
+            for (int c = 1; c < 11; c++){
+                if (numeros[c] == numeros[c-1]){
+                    contIgual++;
+                }
+            }
+            if (contIgual == 10){
+                return false;
             }
             soma = 0;
             for (int c = 0; c < 9; c++){
