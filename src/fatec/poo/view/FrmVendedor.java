@@ -4,6 +4,8 @@ import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoVendedor;
 import fatec.poo.model.Pessoa;
 import fatec.poo.model.Vendedor;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import javax.swing.JOptionPane;
 
 /**
@@ -103,10 +105,12 @@ public class FrmVendedor extends javax.swing.JFrame {
 
         jLabel1.setText("Taxa de Comissão");
 
+        txtComissao.setText("0,0");
         txtComissao.setEnabled(false);
 
         jLabel2.setText("Salário base:");
 
+        txtSalarioBase.setText("0,00");
         txtSalarioBase.setEnabled(false);
 
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
@@ -264,19 +268,17 @@ public class FrmVendedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        conexao.fecharConexao();
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        if (!Pessoa.cpfValido(ftxCPF.getText().replace(".", "").replace("-", ""))) {
-            JOptionPane.showMessageDialog(null, "CPF Invalido");
-            ftxCPF.requestFocus();
-        } else {
-            vendedor = daoVendedor.consultar(ftxCPF.getText().replace(".", "").replace("-", ""));
-            btnConsultar.setEnabled(false);
+        String cpf = ftxCPF.getText().replace(".", "").replace("-", "");
+        if (Pessoa.cpfValido(cpf)) {
+            vendedor = daoVendedor.consultar(cpf);
             ftxCPF.setEnabled(false);
+            
             txtNome.setEnabled(true);
-            txtNome.requestFocus();
             txtEndereco.setEnabled(true);
             txtCidade.setEnabled(true);
             txtDDD.setEnabled(true);
@@ -286,22 +288,27 @@ public class FrmVendedor extends javax.swing.JFrame {
             txtCEP.setEnabled(true);
             cmbUF.setEnabled(true);
 
+            btnConsultar.setEnabled(false);
             if (vendedor == null) {
                 btnIncluir.setEnabled(true);
             } else {
-                btnAlterar.setEnabled(true);
-                btnExcluir.setEnabled(true);
-
                 txtNome.setText(vendedor.getNome());
                 txtEndereco.setText(vendedor.getEndereco());
                 txtCidade.setText(vendedor.getCidade());
                 txtDDD.setText(vendedor.getDdd());
                 txtTelefone.setText(vendedor.getTelefone());
-                txtSalarioBase.setText(String.valueOf(vendedor.getSalarioBase()));
-                txtComissao.setText(String.valueOf(vendedor.getComissao()));
+                txtSalarioBase.setText(df.format(vendedor.getSalarioBase()));
+                txtComissao.setText(df.format(vendedor.getComissao()));
                 txtCEP.setText(vendedor.getCep());
                 cmbUF.setSelectedItem(vendedor.getUf());
+                
+                btnAlterar.setEnabled(true);
+                btnExcluir.setEnabled(true);
             }
+            txtNome.requestFocus();
+        } else {
+            JOptionPane.showMessageDialog(null, "CPF Inválido", "Aviso", JOptionPane.WARNING_MESSAGE);
+            ftxCPF.requestFocus();
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
@@ -316,7 +323,10 @@ public class FrmVendedor extends javax.swing.JFrame {
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
         try {
-            vendedor = new Vendedor(ftxCPF.getText().replace(".", "").replace("-", ""), txtNome.getText(), Double.parseDouble(txtSalarioBase.getText()));
+            String cpf = ftxCPF.getText().replace(".", "").replace("-", "");
+            double salarioBase = df.parse(txtSalarioBase.getText()).doubleValue();
+            
+            vendedor = new Vendedor(cpf, txtNome.getText(), salarioBase);
             vendedor.setCep(txtCEP.getText());
             vendedor.setCidade(txtCidade.getText());
             vendedor.setComissao(Double.parseDouble(txtComissao.getText()));
@@ -327,12 +337,7 @@ public class FrmVendedor extends javax.swing.JFrame {
 
             daoVendedor.inserir(vendedor);
 
-            btnConsultar.setEnabled(true);
-            ftxCPF.setEnabled(true);
-            ftxCPF.setText("");
-            btnIncluir.setEnabled(false);
             txtNome.setEnabled(false);
-            ftxCPF.requestFocus();
             txtEndereco.setEnabled(false);
             txtCidade.setEnabled(false);
             txtDDD.setEnabled(false);
@@ -341,20 +346,28 @@ public class FrmVendedor extends javax.swing.JFrame {
             txtComissao.setEnabled(false);
             txtCEP.setEnabled(false);
             cmbUF.setEnabled(false);
+            
             txtNome.setText("");
             txtEndereco.setText("");
             txtCidade.setText("");
             txtDDD.setText("");
             txtTelefone.setText("");
-            txtSalarioBase.setText("");
-            txtComissao.setText("");
+            txtSalarioBase.setText("0,00");
+            txtComissao.setText("0,0");
             txtCEP.setText("");
             cmbUF.setSelectedItem("");
             
+            btnConsultar.setEnabled(true);
+            btnIncluir.setEnabled(false);
             
-
+            ftxCPF.setEnabled(true);
+            ftxCPF.setText("");
+            ftxCPF.requestFocus();
+        } catch (ParseException ex){
+            JOptionPane.showMessageDialog(this, ex.toString(), "Aviso - valor inválido digitado", JOptionPane.WARNING_MESSAGE);
+            ftxCPF.requestFocus();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Valor incorreto informado em algum campo", "Aviso: valor inválido", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, ex.toString(), "Erro na operação", JOptionPane.ERROR_MESSAGE);
             ftxCPF.requestFocus();
         }
     }//GEN-LAST:event_btnIncluirActionPerformed
@@ -364,12 +377,8 @@ public class FrmVendedor extends javax.swing.JFrame {
             if (JOptionPane.showConfirmDialog(this, "Confirma Exclusão?") == JOptionPane.OK_OPTION) {
                 daoVendedor.excluir(vendedor);
             }
-            btnConsultar.setEnabled(true);
-            ftxCPF.setEnabled(true);
-            ftxCPF.setText("");
-            btnIncluir.setEnabled(false);
+            
             txtNome.setEnabled(false);
-            ftxCPF.requestFocus();
             txtEndereco.setEnabled(false);
             txtCidade.setEnabled(false);
             txtDDD.setEnabled(false);
@@ -378,29 +387,37 @@ public class FrmVendedor extends javax.swing.JFrame {
             txtComissao.setEnabled(false);
             txtCEP.setEnabled(false);
             cmbUF.setEnabled(false);
+            
             txtNome.setText("");
             txtEndereco.setText("");
             txtCidade.setText("");
             txtDDD.setText("");
             txtTelefone.setText("");
-            txtSalarioBase.setText("");
-            txtComissao.setText("");
+            txtSalarioBase.setText("0,00");
+            txtComissao.setText("0,0");
             txtCEP.setText("");
             cmbUF.setSelectedItem("");
 
+            btnConsultar.setEnabled(true);
+            btnIncluir.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+            
+            ftxCPF.setEnabled(true);
+            ftxCPF.setText("");
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Valor incorreto informado em algum campo", "Aviso: valor inválido", JOptionPane.WARNING_MESSAGE);
-            ftxCPF.requestFocus();
+            JOptionPane.showMessageDialog(this, ex.toString(), "Erro na operação", JOptionPane.ERROR_MESSAGE);
         }
+        ftxCPF.requestFocus();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         try {
             if (JOptionPane.showConfirmDialog(this, "Confirma Alteração?") == JOptionPane.OK_OPTION){
-                vendedor.setSalarioBase(Double.parseDouble(txtSalarioBase.getText()));
+                vendedor.setSalarioBase(df.parse(txtSalarioBase.getText()).doubleValue());
                 vendedor.setCep(txtCEP.getText());
                 vendedor.setCidade(txtCidade.getText());
-                vendedor.setComissao(Double.parseDouble(txtComissao.getText()));
+                vendedor.setComissao(df.parse(txtComissao.getText()).doubleValue());
                 vendedor.setDdd(txtDDD.getText());
                 vendedor.setEndereco(txtEndereco.getText());
                 vendedor.setTelefone(txtTelefone.getText());
@@ -409,12 +426,7 @@ public class FrmVendedor extends javax.swing.JFrame {
                 daoVendedor.alterar(vendedor);
             }
 
-            btnConsultar.setEnabled(true);
-            ftxCPF.setEnabled(true);
-            ftxCPF.setText("");
-            btnIncluir.setEnabled(false);
             txtNome.setEnabled(false);
-            ftxCPF.requestFocus();
             txtEndereco.setEnabled(false);
             txtCidade.setEnabled(false);
             txtDDD.setEnabled(false);
@@ -423,6 +435,7 @@ public class FrmVendedor extends javax.swing.JFrame {
             txtComissao.setEnabled(false);
             txtCEP.setEnabled(false);
             cmbUF.setEnabled(false);
+            
             txtNome.setText("");
             txtEndereco.setText("");
             txtCidade.setText("");
@@ -432,13 +445,19 @@ public class FrmVendedor extends javax.swing.JFrame {
             txtComissao.setText("");
             txtCEP.setText("");
             cmbUF.setSelectedItem("");
+            
+            btnConsultar.setEnabled(true);
             btnAlterar.setEnabled(false);
             btnExcluir.setEnabled(false);
-
-        } catch (Exception ex){
-            JOptionPane.showMessageDialog(this, ex.toString(), "Aviso - valor inválido", JOptionPane.WARNING_MESSAGE);
-            ftxCPF.requestFocus();
+            
+            ftxCPF.setEnabled(true);
+            ftxCPF.setText("");
+        } catch (ParseException ex){
+            JOptionPane.showMessageDialog(this, ex.toString(), "Aviso - valor inválido digitado", JOptionPane.WARNING_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.toString(), "Erro na operação", JOptionPane.ERROR_MESSAGE);
         }
+        ftxCPF.requestFocus();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -510,5 +529,5 @@ public class FrmVendedor extends javax.swing.JFrame {
     private DaoVendedor daoVendedor = null;
     private Vendedor vendedor = null;
     private Conexao conexao = null;
-
+    private DecimalFormat df = new DecimalFormat("0.00");
 }
