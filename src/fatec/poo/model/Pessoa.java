@@ -84,7 +84,11 @@ public class Pessoa {
             return false;
         } else {
             for (int c = 0; c < 11; c++){
-                numeros[c] = Integer.parseInt(cpf.substring(c,c+1));
+                try {
+                    numeros[c] = Integer.parseInt(cpf.substring(c,c+1));
+                } catch (NumberFormatException ex){
+                    return false;
+                }
             }
             soma = 0;
             for (int c = 0; c < 9; c++){
