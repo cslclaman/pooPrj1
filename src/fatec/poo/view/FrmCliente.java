@@ -276,7 +276,7 @@ public class FrmCliente extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_btnSairActionPerformed
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         conexao.fecharConexao();
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
@@ -372,6 +372,7 @@ public class FrmCliente extends javax.swing.JFrame {
             
             ftxCPF.setEnabled(true);
             ftxCPF.setText("");
+            ftxCPF.setValue("");
         } catch (ParseException ex){
             JOptionPane.showMessageDialog(this, ex.toString(), "Aviso - valor inválido digitado", JOptionPane.WARNING_MESSAGE);
         } catch (Exception ex) {
@@ -424,7 +425,7 @@ public class FrmCliente extends javax.swing.JFrame {
             btnExcluir.setEnabled(false);
             
             ftxCPF.setEnabled(true);
-            ftxCPF.setText("");
+            ftxCPF.setValue("");
         } catch (ParseException ex){
             JOptionPane.showMessageDialog(this, ex.toString(), "Aviso - valor inválido digitado", JOptionPane.WARNING_MESSAGE);
         } catch (Exception ex){
@@ -466,6 +467,7 @@ public class FrmCliente extends javax.swing.JFrame {
 
             ftxCPF.setEnabled(true);
             ftxCPF.setText("");
+            ftxCPF.setValue("");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.toString(), "Erro na operação", JOptionPane.ERROR_MESSAGE);
         }

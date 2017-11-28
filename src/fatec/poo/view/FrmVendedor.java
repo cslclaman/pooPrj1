@@ -362,14 +362,13 @@ public class FrmVendedor extends javax.swing.JFrame {
             
             ftxCPF.setEnabled(true);
             ftxCPF.setText("");
-            ftxCPF.requestFocus();
+            ftxCPF.setValue("");
         } catch (ParseException ex){
             JOptionPane.showMessageDialog(this, ex.toString(), "Aviso - valor inválido digitado", JOptionPane.WARNING_MESSAGE);
-            ftxCPF.requestFocus();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.toString(), "Erro na operação", JOptionPane.ERROR_MESSAGE);
-            ftxCPF.requestFocus();
         }
+        ftxCPF.requestFocus();
     }//GEN-LAST:event_btnIncluirActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -405,6 +404,7 @@ public class FrmVendedor extends javax.swing.JFrame {
             
             ftxCPF.setEnabled(true);
             ftxCPF.setText("");
+            ftxCPF.setValue("");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.toString(), "Erro na operação", JOptionPane.ERROR_MESSAGE);
         }
@@ -452,6 +452,7 @@ public class FrmVendedor extends javax.swing.JFrame {
             
             ftxCPF.setEnabled(true);
             ftxCPF.setText("");
+            ftxCPF.setValue("");
         } catch (ParseException ex){
             JOptionPane.showMessageDialog(this, ex.toString(), "Aviso - valor inválido digitado", JOptionPane.WARNING_MESSAGE);
         } catch (Exception ex) {
