@@ -116,7 +116,7 @@ public class FrmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemProdutosActionPerformed
 
     private void menuItemEmitirPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEmitirPedidoActionPerformed
-
+        new FrmEmitirPedido().setVisible(true);
     }//GEN-LAST:event_menuItemEmitirPedidoActionPerformed
 
     private void menuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSairActionPerformed
