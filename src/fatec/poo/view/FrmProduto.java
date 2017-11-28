@@ -209,7 +209,8 @@ public class FrmProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-       dispose();
+        conexao.fecharConexao();
+        dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
