@@ -84,6 +84,7 @@ public class FrmProduto extends javax.swing.JFrame {
             }
         });
 
+        txtPrecoUnit.setText("0,00");
         txtPrecoUnit.setEnabled(false);
 
         txtEstoqMin.setEnabled(false);
@@ -261,7 +262,7 @@ public class FrmProduto extends javax.swing.JFrame {
         try {
             int codigo = Integer.parseInt(txtCodigo.getText());
             produto = new Produto(codigo, txtDescricao.getText());
-            produto.setPrecoUnit(Double.parseDouble(txtPrecoUnit.getText()));
+            produto.setPrecoUnit(df.parse(txtPrecoUnit.getText()).doubleValue());
             produto.setEstoqueMin(Integer.parseInt(txtEstoqMin.getText()));
             produto.setQtdeDisponivel(Integer.parseInt(txtQtdeDisp.getText()));
             
@@ -277,7 +278,7 @@ public class FrmProduto extends javax.swing.JFrame {
             txtEstoqMin.setText("");
             
             txtPrecoUnit.setEnabled(false);
-            txtPrecoUnit.setText("");
+            txtPrecoUnit.setText("0,00");
             
             txtQtdeDisp.setEnabled(false);
             txtQtdeDisp.setText("");
@@ -288,7 +289,7 @@ public class FrmProduto extends javax.swing.JFrame {
             
             txtCodigo.requestFocus();
             
-        } catch (NumberFormatException ex){
+        } catch (NumberFormatException | ParseException ex){
             JOptionPane.showMessageDialog(this, ex.toString(), "Aviso - valor inválido", JOptionPane.WARNING_MESSAGE);
             txtPrecoUnit.requestFocus();
         } catch (Exception ex){
@@ -325,7 +326,7 @@ public class FrmProduto extends javax.swing.JFrame {
             txtEstoqMin.setText("");
 
             txtPrecoUnit.setEnabled(false);
-            txtPrecoUnit.setText("");
+            txtPrecoUnit.setText("0,00");
 
             txtQtdeDisp.setEnabled(false);
             txtQtdeDisp.setText("");
@@ -360,7 +361,7 @@ public class FrmProduto extends javax.swing.JFrame {
         txtEstoqMin.setText("");
 
         txtPrecoUnit.setEnabled(false);
-        txtPrecoUnit.setText("");
+        txtPrecoUnit.setText("0,00");
 
         txtQtdeDisp.setEnabled(false);
         txtQtdeDisp.setText("");
