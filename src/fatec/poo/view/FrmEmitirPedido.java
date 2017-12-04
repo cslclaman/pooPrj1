@@ -23,7 +23,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
      */
     public FrmEmitirPedido() {
         initComponents();
-        modTabItens = (DefaultTableModel)jTable2.getModel();
+        modTabItens = (DefaultTableModel)tblItemPedido.getModel();
     }
 
     /**
@@ -38,7 +38,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         btnSair = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
-        Incluir = new javax.swing.JButton();
+        btnIncluir = new javax.swing.JButton();
         pnlPedido = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtNumeroPedido = new javax.swing.JTextField();
@@ -57,16 +57,16 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         txtNomeVendedor = new javax.swing.JTextField();
         pnlItens = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        btnConsProd = new javax.swing.JButton();
+        btnConsultarProduto = new javax.swing.JButton();
         txtCodProd = new javax.swing.JTextField();
-        txt = new javax.swing.JTextField();
+        txtDescricaoProduto = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtQntVend = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        tblItemPedido = new javax.swing.JTable();
+        ftxValorTotalPedido = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtQtdeItemPedido = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         btnAddItem = new javax.swing.JButton();
         btnRemItem = new javax.swing.JButton();
@@ -98,9 +98,9 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
 
-        Incluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
-        Incluir.setText("Incluir");
-        Incluir.setEnabled(false);
+        btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
+        btnIncluir.setText("Incluir");
+        btnIncluir.setEnabled(false);
 
         pnlPedido.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedido"));
 
@@ -114,8 +114,6 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         });
 
         jLabel3.setText("Data do Pedido");
-
-        ftxDataPedido.setEnabled(false);
 
         javax.swing.GroupLayout pnlPedidoLayout = new javax.swing.GroupLayout(pnlPedido);
         pnlPedido.setLayout(pnlPedidoLayout);
@@ -232,18 +230,18 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
 
         jLabel5.setText("Código Produto");
 
-        btnConsProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
-        btnConsProd.setEnabled(false);
+        btnConsultarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
+        btnConsultarProduto.setEnabled(false);
 
         txtCodProd.setEnabled(false);
 
-        txt.setEnabled(false);
+        txtDescricaoProduto.setEnabled(false);
 
         jLabel6.setText("Qtde. Vendida");
 
         txtQntVend.setEnabled(false);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblItemPedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -266,18 +264,19 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblItemPedido);
 
-        jFormattedTextField1.setEnabled(false);
+        ftxValorTotalPedido.setEnabled(false);
 
         jLabel7.setText("Valor Total do Pedido");
 
-        jTextField2.setEnabled(false);
+        txtQtdeItemPedido.setEnabled(false);
 
         jLabel8.setText("Quantidade de Itens do Pedido");
 
         btnAddItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnAddItem.setText("Adicionar Item");
+        btnAddItem.setEnabled(false);
         btnAddItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddItemActionPerformed(evt);
@@ -286,6 +285,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
 
         btnRemItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnRemItem.setText("Remover Item");
+        btnRemItem.setEnabled(false);
 
         javax.swing.GroupLayout pnlItensLayout = new javax.swing.GroupLayout(pnlItens);
         pnlItens.setLayout(pnlItensLayout);
@@ -302,8 +302,8 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                             .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                            .addComponent(jFormattedTextField1)))
+                            .addComponent(txtQtdeItemPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                            .addComponent(ftxValorTotalPedido)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlItensLayout.createSequentialGroup()
                         .addGroup(pnlItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlItensLayout.createSequentialGroup()
@@ -311,9 +311,9 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtCodProd, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
-                                .addComponent(btnConsProd, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnConsultarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(txt)
+                                .addComponent(txtDescricaoProduto)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlItensLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
@@ -333,14 +333,14 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             .addGroup(pnlItensLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnConsProd, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConsultarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5)
                         .addComponent(txtCodProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
                         .addComponent(txtQntVend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRemItem)
@@ -349,11 +349,11 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(pnlItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ftxValorTotalPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtQtdeItemPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)))
         );
 
@@ -363,7 +363,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Incluir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                 .addComponent(btnAlterar)
                 .addGap(93, 93, 93)
@@ -380,7 +380,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                     .addComponent(pnlItens, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Incluir, btnAlterar, btnExcluir, btnSair});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAlterar, btnExcluir, btnIncluir, btnSair});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -395,7 +395,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 .addComponent(pnlItens, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Incluir)
+                    .addComponent(btnIncluir)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnSair)
                         .addComponent(btnExcluir)
@@ -403,7 +403,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Incluir, btnAlterar, btnExcluir, btnSair});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAlterar, btnExcluir, btnIncluir, btnSair});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -458,7 +458,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             }
             
             txtCodProd.setEnabled(true);
-            btnConsProd.setEnabled(true);
+            btnConsultarProduto.setEnabled(true);
             
             /* O botão de consulta do pedido deve ser desabilitado, a caixa de edição do código do
             produto deve ser habilitada e os botões de remoção do item, alterar e excluir devem ser habilitados. */
@@ -509,20 +509,20 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Incluir;
     private javax.swing.JButton btnAddItem;
     private javax.swing.JButton btnAlterar;
-    private javax.swing.JButton btnConsProd;
     private javax.swing.JButton btnConsultarCliente;
     private javax.swing.JButton btnConsultarPedido;
+    private javax.swing.JButton btnConsultarProduto;
     private javax.swing.JButton btnConsultarVendedor;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnIncluir;
     private javax.swing.JButton btnRemItem;
     private javax.swing.JButton btnSair;
     private javax.swing.JFormattedTextField ftxCPFCliente;
     private javax.swing.JFormattedTextField ftxCPFVendedor;
     private javax.swing.JFormattedTextField ftxDataPedido;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFormattedTextField ftxValorTotalPedido;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -532,18 +532,18 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel pnlCliente;
     private javax.swing.JPanel pnlItens;
     private javax.swing.JPanel pnlPedido;
     private javax.swing.JPanel pnlVendedor;
-    private javax.swing.JTextField txt;
+    private javax.swing.JTable tblItemPedido;
     private javax.swing.JTextField txtCodProd;
+    private javax.swing.JTextField txtDescricaoProduto;
     private javax.swing.JTextField txtNomeCliente;
     private javax.swing.JTextField txtNomeVendedor;
     private javax.swing.JTextField txtNumeroPedido;
     private javax.swing.JTextField txtQntVend;
+    private javax.swing.JTextField txtQtdeItemPedido;
     // End of variables declaration//GEN-END:variables
     private Pedido pedido = null;
     private Conexao conexao = null;

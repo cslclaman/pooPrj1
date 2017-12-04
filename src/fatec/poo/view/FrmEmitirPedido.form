@@ -30,7 +30,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="Incluir" linkSize="1" min="-2" pref="110" max="-2" attributes="0"/>
+              <Component id="btnIncluir" linkSize="1" min="-2" pref="110" max="-2" attributes="0"/>
               <EmptySpace pref="97" max="32767" attributes="0"/>
               <Component id="btnAlterar" linkSize="1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
@@ -63,7 +63,7 @@
               <Component id="pnlItens" min="-2" pref="296" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="Incluir" linkSize="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnIncluir" linkSize="2" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnSair" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnExcluir" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -105,7 +105,7 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="Incluir">
+    <Component class="javax.swing.JButton" name="btnIncluir">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/fatec/poo/view/icon/exit.png"/>
@@ -190,9 +190,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="ftxDataPedido">
-          <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -354,8 +351,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jTextField2" pref="102" max="32767" attributes="0"/>
-                              <Component id="jFormattedTextField1" max="32767" attributes="0"/>
+                              <Component id="txtQtdeItemPedido" pref="102" max="32767" attributes="0"/>
+                              <Component id="ftxValorTotalPedido" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -365,9 +362,9 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="txtCodProd" min="-2" pref="136" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="btnConsProd" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Component id="btnConsultarProduto" min="-2" pref="25" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="txt" max="32767" attributes="0"/>
+                                  <Component id="txtDescricaoProduto" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -396,7 +393,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnConsProd" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="btnConsultarProduto" min="-2" pref="28" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtCodProd" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -404,7 +401,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtQntVend" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtDescricaoProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -416,12 +413,12 @@
                   <Component id="jScrollPane2" min="-2" pref="128" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jFormattedTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ftxValorTotalPedido" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtQtdeItemPedido" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -434,7 +431,7 @@
             <Property name="text" type="java.lang.String" value="C&#xf3;digo Produto"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnConsProd">
+        <Component class="javax.swing.JButton" name="btnConsultarProduto">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/fatec/poo/view/icon/pesq.png"/>
@@ -447,7 +444,7 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txt">
+        <Component class="javax.swing.JTextField" name="txtDescricaoProduto">
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -469,7 +466,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable2">
+            <Component class="javax.swing.JTable" name="tblItemPedido">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="5" rowCount="0">
@@ -484,7 +481,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField1">
+        <Component class="javax.swing.JFormattedTextField" name="ftxValorTotalPedido">
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -494,7 +491,7 @@
             <Property name="text" type="java.lang.String" value="Valor Total do Pedido"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField2">
+        <Component class="javax.swing.JTextField" name="txtQtdeItemPedido">
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -510,6 +507,7 @@
               <Image iconType="3" name="/fatec/poo/view/icon/add.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Adicionar Item"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddItemActionPerformed"/>
@@ -521,6 +519,7 @@
               <Image iconType="3" name="/fatec/poo/view/icon/rem.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Remover Item"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>
