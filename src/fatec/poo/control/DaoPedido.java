@@ -57,9 +57,9 @@ public class DaoPedido {
                 status = "F";
             }
             ps = conn.prepareStatement(
-                    "UPDATE TP_Pedido" +
-                    " set CPF_Cliente = ?, CPF_Vendedor = ?, Status = ?, Data_Pedido = ?, Data_Pagto = ?"+
-                    " WHERE Numero = ?"
+                "UPDATE TP_Pedido" +
+                " set CPF_Cliente = ?, CPF_Vendedor = ?, Status = ?, Data_Pedido = ?, Data_Pagto = ?"+
+                " WHERE Numero = ?"
             );
             
             ps.setString(1, pedido.getCliente().getCpf());
