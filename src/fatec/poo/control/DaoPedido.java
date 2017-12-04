@@ -1,10 +1,12 @@
 package fatec.poo.control;
 
+import fatec.poo.model.ItemPedido;
 import fatec.poo.model.Pedido;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -79,6 +81,7 @@ public class DaoPedido {
     public Pedido consultar (int numero) {
         DaoCliente daoCliente = new DaoCliente(conn);
         DaoVendedor daoVendedor = new DaoVendedor(conn);
+        DaoItemPedido daoItemPedido = new DaoItemPedido(conn);
         
         Pedido pedido = null;
         
@@ -101,6 +104,11 @@ public class DaoPedido {
                 pedido.setCliente(daoCliente.consultar(rs.getString("CPF_Cliente")));
                 pedido.setVendedor(daoVendedor.consultar(rs.getString("CPF_Vendedor")));
                 
+                /* CHECAR
+                ArrayList<ItemPedido> listaItens = daoItemPedido.consultarItens(pedido);
+                for(int i = 0; i < listaItens.size(); i++){
+                    pedido.addItemPedido(listaItens.get(i));
+                } */
             }
         }
         catch (SQLException ex) { 
