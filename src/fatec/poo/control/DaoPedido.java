@@ -88,7 +88,7 @@ public class DaoPedido {
                 "SELECT * FROM TP_Pedido" +
                 " WHERE Numero = ?"
             );
-            
+
             ps.setInt(1, numero);
             ResultSet rs = ps.executeQuery();
            
