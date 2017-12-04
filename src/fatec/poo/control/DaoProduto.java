@@ -81,12 +81,12 @@ public class DaoProduto {
         return (produto);
     }    
      
-    public void excluir(Produto departamento) {
+    public void excluir(Produto produto) {
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("DELETE FROM TP_Produto" + 
                     " WHERE Codigo = ?");
-            ps.setInt(1, departamento.getCodigo());
+            ps.setInt(1, produto.getCodigo());
                       
             ps.execute();
         } catch (SQLException ex) {
