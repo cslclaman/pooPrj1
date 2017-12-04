@@ -115,6 +115,9 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
 
         jLabel3.setText("Data do Pedido");
 
+        ftxDataPedido.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        ftxDataPedido.setEnabled(false);
+
         javax.swing.GroupLayout pnlPedidoLayout = new javax.swing.GroupLayout(pnlPedido);
         pnlPedido.setLayout(pnlPedidoLayout);
         pnlPedidoLayout.setHorizontalGroup(
@@ -154,6 +157,11 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
 
         jLabel2.setText("CPF Cliente");
 
+        try {
+            ftxCPFCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         ftxCPFCliente.setEnabled(false);
 
         btnConsultarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
@@ -192,6 +200,11 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
 
         jLabel4.setText("CPF Vendedor");
 
+        try {
+            ftxCPFVendedor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         ftxCPFVendedor.setEnabled(false);
 
         btnConsultarVendedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
@@ -266,6 +279,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tblItemPedido);
 
+        ftxValorTotalPedido.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
         ftxValorTotalPedido.setEnabled(false);
 
         jLabel7.setText("Valor Total do Pedido");
