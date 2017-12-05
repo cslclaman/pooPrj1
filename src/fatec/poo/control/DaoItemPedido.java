@@ -59,9 +59,38 @@ public class DaoItemPedido {
         }
     }
 
-    public ArrayList<ItemPedido> consultarItens (Pedido pedido) {
+    public ItemPedido consultar(int numeroPedido, int codigoProduto){
+        ItemPedido item = null;
+        DaoProduto daoProduto = new DaoProduto(conn);
+        DaoPedido daoPedido = new DaoPedido(conn);
+        
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(
+                "SELECT * FROM TP_Item_Pedido" +
+                " WHERE Numero_Pedido = ? AND Codigo_Produto = ?"
+            );
+
+            ps.setInt(1, numeroPedido);
+            ResultSet rs = ps.executeQuery();
+           
+            if (rs.next() == true) {
+                item = new ItemPedido(rs.getInt("Numero_Item"), rs.getInt("Qtde_Vendida"));
+                item.setPedido(daoPedido.consultar(numeroPedido));
+                item.setProduto(daoProduto.consultar(codigoProduto));
+            }
+        }
+        catch (SQLException ex) { 
+             System.out.println(ex.toString());   
+        }
+        
+        return item;
+    }
+    
+    public ArrayList<ItemPedido> consultarItens (int numeroPedido) {
         ArrayList<ItemPedido> listaItens = new ArrayList<ItemPedido>();
         DaoProduto daoProduto = new DaoProduto(conn);
+        DaoPedido daoPedido = new DaoPedido(conn);
         
         PreparedStatement ps = null;
         try {
@@ -70,12 +99,12 @@ public class DaoItemPedido {
                 " WHERE Numero_Pedido = ?"
             );
 
-            ps.setInt(1, pedido.getNumero());
+            ps.setInt(1, numeroPedido);
             ResultSet rs = ps.executeQuery();
            
             while (rs.next() == true) {
                 ItemPedido item = new ItemPedido(rs.getInt("Numero_Item"), rs.getInt("Qtde_Vendida"));
-                item.setPedido(pedido);
+                item.setPedido(daoPedido.consultar(numeroPedido));
                 item.setProduto(daoProduto.consultar(rs.getInt("Codigo_Produto")));
                 
                 listaItens.add(item);
