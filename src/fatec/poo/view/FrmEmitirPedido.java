@@ -320,6 +320,11 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         btnAdicionarItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnAdicionarItem.setText("Adicionar Item");
         btnAdicionarItem.setEnabled(false);
+        btnAdicionarItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarItemActionPerformed(evt);
+            }
+        });
 
         btnRemoverItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnRemoverItem.setText("Remover Item");
@@ -609,6 +614,49 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             txtCodigoProduto.requestFocus();
         } 
     }//GEN-LAST:event_btnConsultarProdutoActionPerformed
+
+    private void btnAdicionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarItemActionPerformed
+        try {
+            int qtde = Integer.parseInt(txtQtdeVendida.getText());
+            
+            if (qtde == 0){
+                JOptionPane.showMessageDialog(null, "Quantidade deve ser maior que zero", "Aviso", JOptionPane.WARNING_MESSAGE);
+                txtQtdeVendida.requestFocus();
+            } else {
+                /*Caso contrário, a quantidade vendida informada pelo usuário deve ser
+                pesquisada na tabela de produtos, via DAO, para verificar se a quantidade solicitada encontra-se
+                disponível em estoque.*/
+                if (produto.getQtdeDisponivel() < qtde){
+                    /*
+                    Caso a quantidade em estoque seja a inferior a quantidade solicitada na gui
+                    uma mensagem de advertência deve ser enviada para o usuário.
+                    */
+                    JOptionPane.showMessageDialog(null, 
+                            "Quantidade indisponível em estoque\n" + 
+                            "Disponível: " + produto.getQtdeDisponivel(), 
+                            "Aviso", JOptionPane.WARNING_MESSAGE);
+                    txtQtdeVendida.requestFocus();
+                } else {
+                    /*
+                    Caso contrário o objeto item pedido
+                    deve ser instanciado a associação binária entre Item Pedido e Produto deve ser estabelecida. 
+                    */
+                    
+                    /*
+                    Em seguida deve ser verificado na tabela de clientes, via DAO, se o valor do item do pedido é
+                    compatível com o limite disponível do cliente. Caso o valor do item de pedido ultrapasse o limite
+                    disponível do cliente emitir mensagem de advertência. Caso contrário, a associação binária entre
+                    Pedido e ItemPedido deve ser estabelecida e a exibição os dados na gui deve ser feita conforme o
+                    lay-out do JTable. A área de dados na gui referente ao valor total do pedido e a quantidade de itens
+                    do pedido devem ser atualizadas.
+                    */
+                }
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Formato inválido - quantidade vendida deve ser numérica", "Aviso", JOptionPane.WARNING_MESSAGE);
+            txtQtdeVendida.requestFocus();
+        } 
+    }//GEN-LAST:event_btnAdicionarItemActionPerformed
 
     
     /**
