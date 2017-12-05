@@ -1,9 +1,15 @@
 package fatec.poo.view;
 
 import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoCliente;
 import fatec.poo.control.DaoPedido;
+import fatec.poo.control.DaoVendedor;
+import fatec.poo.model.Cliente;
 import fatec.poo.model.ItemPedido;
 import fatec.poo.model.Pedido;
+import fatec.poo.model.Pessoa;
+import fatec.poo.model.Vendedor;
+import java.sql.Connection;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -50,12 +56,12 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         ftxCPFCliente = new javax.swing.JFormattedTextField();
         btnConsultarCliente = new javax.swing.JButton();
-        txtNomeCliente = new javax.swing.JTextField();
+        lblNomeCliente = new javax.swing.JLabel();
         pnlVendedor = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         ftxCPFVendedor = new javax.swing.JFormattedTextField();
         btnConsultarVendedor = new javax.swing.JButton();
-        txtNomeVendedor = new javax.swing.JTextField();
+        lblNomeVendedor = new javax.swing.JLabel();
         pnlItens = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txtCodigoProduto = new javax.swing.JTextField();
@@ -177,8 +183,13 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
 
         btnConsultarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultarCliente.setEnabled(false);
+        btnConsultarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarClienteActionPerformed(evt);
+            }
+        });
 
-        txtNomeCliente.setEnabled(false);
+        lblNomeCliente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         javax.swing.GroupLayout pnlClienteLayout = new javax.swing.GroupLayout(pnlCliente);
         pnlCliente.setLayout(pnlClienteLayout);
@@ -192,15 +203,15 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnConsultarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txtNomeCliente)
+                .addComponent(lblNomeCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlClienteLayout.setVerticalGroup(
             pnlClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlClienteLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlClienteLayout.createSequentialGroup()
                 .addContainerGap(19, Short.MAX_VALUE)
                 .addGroup(pnlClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnConsultarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
@@ -221,7 +232,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         btnConsultarVendedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultarVendedor.setEnabled(false);
 
-        txtNomeVendedor.setEnabled(false);
+        lblNomeVendedor.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         javax.swing.GroupLayout pnlVendedorLayout = new javax.swing.GroupLayout(pnlVendedor);
         pnlVendedor.setLayout(pnlVendedorLayout);
@@ -234,20 +245,20 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 .addComponent(ftxCPFVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(btnConsultarVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtNomeVendedor)
+                .addGap(19, 19, 19)
+                .addComponent(lblNomeVendedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlVendedorLayout.setVerticalGroup(
             pnlVendedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlVendedorLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlVendedorLayout.createSequentialGroup()
                 .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(pnlVendedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNomeVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnConsultarVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlVendedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
-                        .addComponent(ftxCPFVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtNomeVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ftxCPFVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         pnlItens.setBorder(javax.swing.BorderFactory.createTitledBorder("Itens do Pedido"));
@@ -429,7 +440,12 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         conexao = new Conexao("BD1611009","dont100nha");
         conexao.setDriver("oracle.jdbc.driver.OracleDriver");
         conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
-        daoPedido = new DaoPedido(conexao.conectar());
+        
+        Connection conn = conexao.conectar();
+        daoPedido = new DaoPedido(conn);
+        daoCliente = new DaoCliente(conn);
+        daoVendedor = new DaoVendedor(conn);
+        
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -443,24 +459,24 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnConsultarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarPedidoActionPerformed
-        pedido = daoPedido.consultar(Integer.parseInt(txtNumeroPedido.getText()));
+        int numPedido = Integer.parseInt(txtNumeroPedido.getText());
+        
+        pedido = daoPedido.consultar(numPedido);
         
         if (pedido == null){
             txtNumeroPedido.setEnabled(false);
             ftxDataPedido.setEnabled(true);
             ftxCPFCliente.setEnabled(true);
             
-            btnConsultarCliente.setEnabled(true);
-            
             ftxDataPedido.requestFocus();
         } else {
             ftxDataPedido.setText(pedido.getDataPagto());
             
             ftxCPFCliente.setText(pedido.getCliente().getCpf());
-            txtNomeCliente.setText(pedido.getCliente().getNome());
+            lblNomeCliente.setText(pedido.getCliente().getNome());
             
             ftxCPFVendedor.setText(pedido.getVendedor().getCpf());
-            txtNomeVendedor.setText(pedido.getVendedor().getNome());
+            lblNomeVendedor.setText(pedido.getVendedor().getNome());
             
             for (int i = 0; i < pedido.getItensPedidos().size(); i++){
                 ItemPedido item = pedido.getItensPedidos().get(i);
@@ -491,13 +507,44 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             sdf.setLenient(false);
             sdf.parse(ftxDataPedido.getText());
+            ftxDataPedido.setEnabled(false);
+            
+            pedido = new Pedido(Integer.parseInt(txtNumeroPedido.getText()), ftxDataPedido.getText().replace("/", ""));
+            
+            btnConsultarCliente.setEnabled(true);
             ftxCPFCliente.requestFocus();
         } catch (ParseException ex){
             JOptionPane.showMessageDialog(null, "Data inválida informada", "Aviso", JOptionPane.WARNING_MESSAGE);
             ftxDataPedido.selectAll();
+            btnConsultarCliente.setEnabled(false);
             ftxDataPedido.requestFocus();
         }
     }//GEN-LAST:event_ftxDataPedidoFocusLost
+
+    private void btnConsultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarClienteActionPerformed
+        String cpf = ftxCPFCliente.getText().replace(".", "").replace("-", "");
+        
+        if(Pessoa.cpfValido(cpf)){
+            Cliente cliente = daoCliente.consultar(cpf);
+            
+            if (cliente == null){
+                JOptionPane.showMessageDialog(null, "Cliente não encontrado", "Aviso", JOptionPane.WARNING_MESSAGE);
+                ftxCPFCliente.requestFocus();
+            } else {
+                ftxCPFCliente.setEnabled(false);
+                btnConsultarCliente.setEnabled(false);
+                
+                pedido.setCliente(cliente);
+                lblNomeCliente.setText(cliente.getNome());
+                
+                ftxCPFVendedor.setEnabled(true);
+                btnConsultarVendedor.setEnabled(true);
+            } 
+        } else {
+            JOptionPane.showMessageDialog(null, "CPF Inválido", "Aviso", JOptionPane.WARNING_MESSAGE);
+            ftxCPFCliente.requestFocus();
+        } 
+    }//GEN-LAST:event_btnConsultarClienteActionPerformed
 
     
     /**
@@ -558,6 +605,8 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblNomeCliente;
+    private javax.swing.JLabel lblNomeVendedor;
     private javax.swing.JLabel lblQtdeTotalItens;
     private javax.swing.JLabel lblValorTotal;
     private javax.swing.JPanel pnlCliente;
@@ -567,14 +616,17 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
     private javax.swing.JTable tblItemPedido;
     private javax.swing.JTextField txtCodigoProduto;
     private javax.swing.JTextField txtDescricaoProduto;
-    private javax.swing.JTextField txtNomeCliente;
-    private javax.swing.JTextField txtNomeVendedor;
     private javax.swing.JTextField txtNumeroPedido;
     private javax.swing.JTextField txtQtdeVendida;
     // End of variables declaration//GEN-END:variables
     private Pedido pedido = null;
+    private Vendedor vendedor = null;
+    
     private Conexao conexao = null;
     private DaoPedido daoPedido = null;
+    private DaoCliente daoCliente = null;
+    private DaoVendedor daoVendedor = null;
+    
     private DefaultTableModel modTabItens;
     private DecimalFormat df = new DecimalFormat("0.00");
 }
