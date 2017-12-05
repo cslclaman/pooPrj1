@@ -2,6 +2,7 @@ package fatec.poo.view;
 
 import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoCliente;
+import fatec.poo.control.DaoItemPedido;
 import fatec.poo.control.DaoPedido;
 import fatec.poo.control.DaoProduto;
 import fatec.poo.control.DaoVendedor;
@@ -110,6 +111,11 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnIncluir.setText("Incluir");
         btnIncluir.setEnabled(false);
+        btnIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncluirActionPerformed(evt);
+            }
+        });
 
         pnlPedido.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedido"));
 
@@ -330,8 +336,10 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         btnRemoverItem.setText("Remover Item");
         btnRemoverItem.setEnabled(false);
 
+        lblValorTotal.setText("0,00");
         lblValorTotal.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
+        lblQtdeTotalItens.setText("0");
         lblQtdeTotalItens.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         lblDescricaoProduto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -396,11 +404,11 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblValorTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblQtdeTotalItens, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -465,6 +473,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         daoCliente = new DaoCliente(conn);
         daoVendedor = new DaoVendedor(conn);
         daoProduto = new DaoProduto(conn);
+        daoItemPedido = new DaoItemPedido(conn);
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -544,7 +553,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         String cpf = ftxCPFCliente.getText().replace(".", "").replace("-", "");
         
         if(Pessoa.cpfValido(cpf)){
-            cliente = daoCliente.consultar(cpf);
+            Cliente cliente = daoCliente.consultar(cpf);
             
             if (cliente == null){
                 JOptionPane.showMessageDialog(null, "Cliente não encontrado", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -570,7 +579,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         String cpf = ftxCPFVendedor.getText().replace(".", "").replace("-", "");
         
         if(Pessoa.cpfValido(cpf)){
-            vendedor = daoVendedor.consultar(cpf);
+            Vendedor vendedor = daoVendedor.consultar(cpf);
             
             if (vendedor == null){
                 JOptionPane.showMessageDialog(null, "Vendedor não encontrado", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -595,7 +604,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
     private void btnConsultarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarProdutoActionPerformed
         try {
             int codProduto = Integer.parseInt(txtCodigoProduto.getText());
-            produto = daoProduto.consultar(codProduto);
+            Produto produto = daoProduto.consultar(codProduto);
             
             if (produto == null){
                 JOptionPane.showMessageDialog(null, "Produto não encontrado", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -618,6 +627,8 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
     private void btnAdicionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarItemActionPerformed
         try {
             int qtde = Integer.parseInt(txtQtdeVendida.getText());
+            int codProduto = Integer.parseInt(txtCodigoProduto.getText());
+            Produto produto = daoProduto.consultar(codProduto);
             
             if (qtde == 0){
                 JOptionPane.showMessageDialog(null, "Quantidade deve ser maior que zero", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -635,10 +646,10 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                     
                     double valorItem = produto.getPrecoUnit() * qtde;
                     
-                    if (valorItem > cliente.getLimiteDisp()) {
+                    if (valorItem > pedido.getCliente().getLimiteDisp()) {
                         JOptionPane.showMessageDialog(null, 
                             "Cliente não tem limite disponível para a compra" + 
-                            "\nDisponível: " + df.format(cliente.getLimiteDisp()) +
+                            "\nDisponível: " + df.format(pedido.getCliente().getLimiteDisp()) +
                             "\nValor do item: " + df.format(valorItem), 
                             "Aviso", JOptionPane.WARNING_MESSAGE);
                         txtQtdeVendida.requestFocus();
@@ -651,8 +662,10 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                             String.valueOf(qtde)
                         };
                         modTabItens.addRow(linha);
-                        modTabItens.setValueAt(df.format(valorItem), modTabItens.getRowCount(), 4);
+                        modTabItens.setValueAt(df.format(valorItem), modTabItens.getRowCount() - 1, 4);
+                        
                         numItens ++;
+                        valorTotal += valorItem;
                         
                         lblQtdeTotalItens.setText(String.valueOf(numItens));
                         lblValorTotal.setText(df.format(valorTotal));
@@ -668,6 +681,43 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             txtQtdeVendida.requestFocus();
         } 
     }//GEN-LAST:event_btnAdicionarItemActionPerformed
+
+    private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+        try {
+            daoPedido.inserir(pedido);
+            daoCliente.alterar(pedido.getCliente());
+            for (int i = 0; i < pedido.getItensPedidos().size(); i ++){
+                ItemPedido item = pedido.getItensPedidos().get(i);
+                daoItemPedido.inserir(item);
+                daoProduto.alterar(item.getProduto());
+            }
+            
+            txtNumeroPedido.setEnabled(true);
+            txtNumeroPedido.setText("");
+            ftxDataPedido.setText("");
+            ftxCPFCliente.setText("");
+            lblNomeCliente.setText("");
+            ftxCPFVendedor.setText("");
+            lblNomeVendedor.setText("");
+            txtCodigoProduto.setText("");
+            lblDescricaoProduto.setText("");
+            btnAdicionarItem.setEnabled(false);
+            btnRemoverItem.setEnabled(false);
+            btnConsultarProduto.setEnabled(false);
+            txtQtdeVendida.setText("");
+            lblValorTotal.setText("0,00");
+            lblQtdeTotalItens.setText("0");
+            while (modTabItens.getRowCount() > 0){
+                modTabItens.removeRow(0);
+            }
+            btnIncluir.setEnabled(false);
+            btnConsultarPedido.setEnabled(true);
+            
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog(this, ex.toString(), "Erro na operação", JOptionPane.ERROR_MESSAGE);
+            System.err.println(ex.toString() + "\n" + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnIncluirActionPerformed
 
     
     /**
@@ -746,15 +796,13 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
     private double valorTotal = 0;
     
     private Pedido pedido = null;
-    private Cliente cliente = null;
-    private Vendedor vendedor = null;
-    private Produto produto = null;
     
     private Conexao conexao = null;
     private DaoPedido daoPedido = null;
     private DaoCliente daoCliente = null;
     private DaoVendedor daoVendedor = null;
     private DaoProduto daoProduto = null;
+    private DaoItemPedido daoItemPedido = null;
     
     private DefaultTableModel modTabItens;
     private DecimalFormat df = new DecimalFormat("0.00");

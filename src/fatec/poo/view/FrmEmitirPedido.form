@@ -111,6 +111,9 @@
         <Property name="text" type="java.lang.String" value="Incluir"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIncluirActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="pnlPedido">
       <Properties>
@@ -438,12 +441,12 @@
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="lblValorTotal" max="32767" attributes="0"/>
-                      <Component id="jLabel7" pref="20" max="32767" attributes="0"/>
+                      <Component id="jLabel7" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="lblQtdeTotalItens" max="32767" attributes="0"/>
-                      <Component id="jLabel8" pref="20" max="32767" attributes="0"/>
+                      <Component id="jLabel8" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
@@ -537,6 +540,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblValorTotal">
           <Properties>
+            <Property name="text" type="java.lang.String" value="0,00"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
                 <BevelBorder bevelType="1"/>
@@ -546,6 +550,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblQtdeTotalItens">
           <Properties>
+            <Property name="text" type="java.lang.String" value="0"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
                 <BevelBorder bevelType="1"/>
