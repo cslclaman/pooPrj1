@@ -107,6 +107,11 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnIncluir.setText("Incluir");
@@ -498,7 +503,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             
             ftxDataPedido.requestFocus();
         } else {
-            ftxDataPedido.setText(pedido.getDataPagto());
+            ftxDataPedido.setText(pedido.getDataEmissaoPedido());
             
             ftxCPFCliente.setText(pedido.getCliente().getCpf());
             lblNomeCliente.setText(pedido.getCliente().getNome());
@@ -529,7 +534,9 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             txtCodigoProduto.setEnabled(true);
             btnConsultarProduto.setEnabled(true);
             
+            btnAdicionarItem.setEnabled(true);
             btnRemoverItem.setEnabled(true);
+            
             btnAlterar.setEnabled(true);
             btnExcluir.setEnabled(true);
         }
@@ -543,7 +550,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             sdf.parse(ftxDataPedido.getText());
             ftxDataPedido.setEnabled(false);
             
-            pedido = new Pedido(Integer.parseInt(txtNumeroPedido.getText()), ftxDataPedido.getText().replace("/", ""));
+            pedido = new Pedido(Integer.parseInt(txtNumeroPedido.getText()), ftxDataPedido.getText());
             
             btnConsultarCliente.setEnabled(true);
             ftxCPFCliente.requestFocus();
@@ -728,6 +735,21 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             System.err.println(ex.toString() + "\n" + ex.getMessage());
         }
     }//GEN-LAST:event_btnIncluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        if (JOptionPane.showConfirmDialog(this, "Confirma Alteração?") == JOptionPane.OK_OPTION){
+            daoPedido.alterar(pedido);
+            daoCliente.alterar(pedido.getCliente());
+            for (int i = 0; i < pedido.getItensPedidos().size(); i ++){
+                /*
+                TODO: Checar se o item pedido já está cadastrado (daoItemPedido.consultar()).
+                Se estiver, atualiza.
+                Se não estiver, adiciona.
+                Se esteve cadastrado, mas não está mais, remove.
+                */
+            }
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     
     /**
