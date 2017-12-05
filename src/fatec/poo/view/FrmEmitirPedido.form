@@ -2,12 +2,12 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="Emitir Pedido"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <Events>
     <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
@@ -189,11 +189,15 @@
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="ftxDataPedido">
           <Properties>
-            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-              <Format subtype="0" type="1"/>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+              <Format format="##/##/####" subtype="-1" type="5"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
+            <Property name="focusLostBehavior" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="ftxDataPedidoFocusLost"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -376,9 +380,9 @@
                                   <Component id="lblValorTotal" min="-2" pref="97" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="btnAddItem" min="-2" pref="139" max="-2" attributes="0"/>
+                                  <Component id="btnAdicionarItem" min="-2" pref="139" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnRemItem" min="-2" pref="139" max="-2" attributes="0"/>
+                                  <Component id="btnRemoverItem" min="-2" pref="139" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
@@ -410,8 +414,8 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnAddItem" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnRemItem" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAdicionarItem" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnRemoverItem" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane2" min="-2" pref="128" max="-2" attributes="0"/>
@@ -496,7 +500,7 @@
             <Property name="text" type="java.lang.String" value="Quantidade de Itens do Pedido"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnAddItem">
+        <Component class="javax.swing.JButton" name="btnAdicionarItem">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/fatec/poo/view/icon/add.png"/>
@@ -504,11 +508,8 @@
             <Property name="text" type="java.lang.String" value="Adicionar Item"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddItemActionPerformed"/>
-          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnRemItem">
+        <Component class="javax.swing.JButton" name="btnRemoverItem">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/fatec/poo/view/icon/rem.png"/>

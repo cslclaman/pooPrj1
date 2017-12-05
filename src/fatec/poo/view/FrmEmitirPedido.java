@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fatec.poo.view;
 
 import fatec.poo.control.Conexao;
@@ -10,11 +5,17 @@ import fatec.poo.control.DaoPedido;
 import fatec.poo.model.ItemPedido;
 import fatec.poo.model.Pedido;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author 0030481611001
+ * @author Airton Brasil 0030481611002
+ * @author Allan Flores 0030481611001
+ * @author Caique Siqueira 0030481611009
  */
 public class FrmEmitirPedido extends javax.swing.JFrame {
 
@@ -66,12 +67,12 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         tblItemPedido = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        btnAddItem = new javax.swing.JButton();
-        btnRemItem = new javax.swing.JButton();
+        btnAdicionarItem = new javax.swing.JButton();
+        btnRemoverItem = new javax.swing.JButton();
         lblValorTotal = new javax.swing.JLabel();
         lblQtdeTotalItens = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Emitir Pedido");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -115,8 +116,18 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
 
         jLabel3.setText("Data do Pedido");
 
-        ftxDataPedido.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        try {
+            ftxDataPedido.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         ftxDataPedido.setEnabled(false);
+        ftxDataPedido.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+        ftxDataPedido.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                ftxDataPedidoFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlPedidoLayout = new javax.swing.GroupLayout(pnlPedido);
         pnlPedido.setLayout(pnlPedidoLayout);
@@ -283,18 +294,13 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
 
         jLabel8.setText("Quantidade de Itens do Pedido");
 
-        btnAddItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
-        btnAddItem.setText("Adicionar Item");
-        btnAddItem.setEnabled(false);
-        btnAddItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddItemActionPerformed(evt);
-            }
-        });
+        btnAdicionarItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
+        btnAdicionarItem.setText("Adicionar Item");
+        btnAdicionarItem.setEnabled(false);
 
-        btnRemItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
-        btnRemItem.setText("Remover Item");
-        btnRemItem.setEnabled(false);
+        btnRemoverItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
+        btnRemoverItem.setText("Remover Item");
+        btnRemoverItem.setEnabled(false);
 
         lblValorTotal.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -329,9 +335,9 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlItensLayout.createSequentialGroup()
-                                .addComponent(btnAddItem, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnAdicionarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnRemItem, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnRemoverItem, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlItensLayout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -353,8 +359,8 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                         .addComponent(txtDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddItem)
-                    .addComponent(btnRemItem))
+                    .addComponent(btnAdicionarItem)
+                    .addComponent(btnRemoverItem))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -416,6 +422,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAlterar, btnExcluir, btnIncluir, btnSair});
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -444,6 +451,8 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             ftxCPFCliente.setEnabled(true);
             
             btnConsultarCliente.setEnabled(true);
+            
+            ftxDataPedido.requestFocus();
         } else {
             ftxDataPedido.setText(pedido.getDataPagto());
             
@@ -470,17 +479,25 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             txtCodigoProduto.setEnabled(true);
             btnConsultarProduto.setEnabled(true);
             
-            /* O botão de consulta do pedido deve ser desabilitado, a caixa de edição do código do
-            produto deve ser habilitada e os botões de remoção do item, alterar e excluir devem ser habilitados. */
+            btnRemoverItem.setEnabled(true);
+            btnAlterar.setEnabled(true);
+            btnExcluir.setEnabled(true);
         }
         btnConsultarPedido.setEnabled(false);
-        
-        
     }//GEN-LAST:event_btnConsultarPedidoActionPerformed
 
-    private void btnAddItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAddItemActionPerformed
+    private void ftxDataPedidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ftxDataPedidoFocusLost
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            sdf.setLenient(false);
+            sdf.parse(ftxDataPedido.getText());
+            ftxCPFCliente.requestFocus();
+        } catch (ParseException ex){
+            JOptionPane.showMessageDialog(null, "Data inválida informada", "Aviso", JOptionPane.WARNING_MESSAGE);
+            ftxDataPedido.selectAll();
+            ftxDataPedido.requestFocus();
+        }
+    }//GEN-LAST:event_ftxDataPedidoFocusLost
 
     
     /**
@@ -519,7 +536,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddItem;
+    private javax.swing.JButton btnAdicionarItem;
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnConsultarCliente;
     private javax.swing.JButton btnConsultarPedido;
@@ -527,7 +544,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
     private javax.swing.JButton btnConsultarVendedor;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnIncluir;
-    private javax.swing.JButton btnRemItem;
+    private javax.swing.JButton btnRemoverItem;
     private javax.swing.JButton btnSair;
     private javax.swing.JFormattedTextField ftxCPFCliente;
     private javax.swing.JFormattedTextField ftxCPFVendedor;
