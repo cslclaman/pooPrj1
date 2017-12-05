@@ -518,7 +518,13 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 
                 double subtotal = item.getProduto().getPrecoUnit() * item.getQtdeVendida();
                 modTabItens.setValueAt(df.format(subtotal), modTabItens.getRowCount() - 1, 4);
+                
+                valorTotal += subtotal;
+                numItens += item.getQtdeVendida();
             }
+            
+            lblQtdeTotalItens.setText(String.valueOf(numItens));
+            lblValorTotal.setText(df.format(valorTotal));
             
             txtCodigoProduto.setEnabled(true);
             btnConsultarProduto.setEnabled(true);
@@ -712,6 +718,10 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             }
             btnIncluir.setEnabled(false);
             btnConsultarPedido.setEnabled(true);
+            
+            pedido = null;
+            numItens = 0;
+            valorTotal = 0;
             
         } catch (Exception ex){
             JOptionPane.showMessageDialog(this, ex.toString(), "Erro na operação", JOptionPane.ERROR_MESSAGE);
