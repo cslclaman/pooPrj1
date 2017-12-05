@@ -610,7 +610,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             }
             
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Formato inválido - código deve ser numérico", "Aviso", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Aviso - valor inválido digitado", "Aviso", JOptionPane.WARNING_MESSAGE);
             txtCodigoProduto.requestFocus();
         } 
     }//GEN-LAST:event_btnConsultarProdutoActionPerformed
@@ -623,37 +623,48 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Quantidade deve ser maior que zero", "Aviso", JOptionPane.WARNING_MESSAGE);
                 txtQtdeVendida.requestFocus();
             } else {
-                /*Caso contrário, a quantidade vendida informada pelo usuário deve ser
-                pesquisada na tabela de produtos, via DAO, para verificar se a quantidade solicitada encontra-se
-                disponível em estoque.*/
                 if (produto.getQtdeDisponivel() < qtde){
-                    /*
-                    Caso a quantidade em estoque seja a inferior a quantidade solicitada na gui
-                    uma mensagem de advertência deve ser enviada para o usuário.
-                    */
                     JOptionPane.showMessageDialog(null, 
                             "Quantidade indisponível em estoque\n" + 
                             "Disponível: " + produto.getQtdeDisponivel(), 
                             "Aviso", JOptionPane.WARNING_MESSAGE);
                     txtQtdeVendida.requestFocus();
                 } else {
-                    /*
-                    Caso contrário o objeto item pedido
-                    deve ser instanciado a associação binária entre Item Pedido e Produto deve ser estabelecida. 
-                    */
+                    ItemPedido item = new ItemPedido(numItens + 1, qtde);
+                    item.setProduto(produto);
                     
-                    /*
-                    Em seguida deve ser verificado na tabela de clientes, via DAO, se o valor do item do pedido é
-                    compatível com o limite disponível do cliente. Caso o valor do item de pedido ultrapasse o limite
-                    disponível do cliente emitir mensagem de advertência. Caso contrário, a associação binária entre
-                    Pedido e ItemPedido deve ser estabelecida e a exibição os dados na gui deve ser feita conforme o
-                    lay-out do JTable. A área de dados na gui referente ao valor total do pedido e a quantidade de itens
-                    do pedido devem ser atualizadas.
-                    */
+                    double valorItem = produto.getPrecoUnit() * qtde;
+                    
+                    if (valorItem > cliente.getLimiteDisp()) {
+                        JOptionPane.showMessageDialog(null, 
+                            "Cliente não tem limite disponível para a compra" + 
+                            "\nDisponível: " + df.format(cliente.getLimiteDisp()) +
+                            "\nValor do item: " + df.format(valorItem), 
+                            "Aviso", JOptionPane.WARNING_MESSAGE);
+                        txtQtdeVendida.requestFocus();
+                    } else {
+                        pedido.addItemPedido(item);
+                        String[] linha = { 
+                            String.valueOf(produto.getCodigo()),
+                            produto.getDescricao(),
+                            df.format(produto.getPrecoUnit()),
+                            String.valueOf(qtde)
+                        };
+                        modTabItens.addRow(linha);
+                        modTabItens.setValueAt(df.format(valorItem), modTabItens.getRowCount(), 4);
+                        numItens ++;
+                        
+                        lblQtdeTotalItens.setText(String.valueOf(numItens));
+                        lblValorTotal.setText(df.format(valorTotal));
+                        
+                        if (numItens > 0){
+                            btnIncluir.setEnabled(true);
+                        }
+                    }
                 }
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Formato inválido - quantidade vendida deve ser numérica", "Aviso", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Aviso - valor inválido digitado", "Aviso", JOptionPane.WARNING_MESSAGE);
             txtQtdeVendida.requestFocus();
         } 
     }//GEN-LAST:event_btnAdicionarItemActionPerformed
@@ -731,6 +742,9 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
     private javax.swing.JTextField txtNumeroPedido;
     private javax.swing.JTextField txtQtdeVendida;
     // End of variables declaration//GEN-END:variables
+    private int numItens = 0;
+    private double valorTotal = 0;
+    
     private Pedido pedido = null;
     private Cliente cliente = null;
     private Vendedor vendedor = null;
