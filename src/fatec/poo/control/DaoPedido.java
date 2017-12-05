@@ -103,12 +103,7 @@ public class DaoPedido {
                 pedido.setStatus(status);
                 pedido.setCliente(daoCliente.consultar(rs.getString("CPF_Cliente")));
                 pedido.setVendedor(daoVendedor.consultar(rs.getString("CPF_Vendedor")));
-                
-                /* CHECAR
-                ArrayList<ItemPedido> listaItens = daoItemPedido.consultarItens(pedido);
-                for(int i = 0; i < listaItens.size(); i++){
-                    pedido.addItemPedido(listaItens.get(i));
-                } */
+                pedido.setItensPedidos(daoItemPedido.consultarItens(pedido));
             }
         }
         catch (SQLException ex) { 
