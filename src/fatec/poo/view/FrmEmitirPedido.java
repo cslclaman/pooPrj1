@@ -459,7 +459,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         daoPedido = new DaoPedido(conn);
         daoCliente = new DaoCliente(conn);
         daoVendedor = new DaoVendedor(conn);
-        
+        daoProduto = new DaoProduto(conn);
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -553,6 +553,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 
                 ftxCPFVendedor.setEnabled(true);
                 btnConsultarVendedor.setEnabled(true);
+                ftxCPFVendedor.requestFocus();
             } 
         } else {
             JOptionPane.showMessageDialog(null, "CPF Inválido", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -578,6 +579,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 
                 txtCodigoProduto.setEnabled(true);
                 btnConsultarProduto.setEnabled(true);
+                txtCodigoProduto.requestFocus();
             } 
         } else {
             JOptionPane.showMessageDialog(null, "CPF Inválido", "Aviso", JOptionPane.WARNING_MESSAGE);
