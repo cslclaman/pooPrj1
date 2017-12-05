@@ -52,6 +52,10 @@ public class Pedido {
     public ArrayList<ItemPedido> getItensPedidos() {
         return itensPedidos;
     }
+
+    public void setItensPedidos(ArrayList<ItemPedido> itensPedidos) {
+        this.itensPedidos = itensPedidos;
+    }
     
     public Cliente getCliente() {
         return cliente;
