@@ -502,7 +502,6 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         pedido = daoPedido.consultar(numPedido);
         
         if (pedido == null){
-            txtNumeroPedido.setEnabled(false);
             ftxDataPedido.setEnabled(true);
             ftxCPFCliente.setEnabled(true);
             
@@ -530,7 +529,8 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 modTabItens.setValueAt(df.format(subtotal), modTabItens.getRowCount() - 1, 4);
                 
                 valorTotal += subtotal;
-                numItens += item.getQtdeVendida();
+                qtdeTotal += item.getQtdeVendida();
+                numItens ++;
             }
             
             lblQtdeTotalItens.setText(String.valueOf(numItens));
@@ -545,6 +545,8 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             btnAlterar.setEnabled(true);
             btnExcluir.setEnabled(true);
         }
+        
+        txtNumeroPedido.setEnabled(false);
         btnConsultarPedido.setEnabled(false);
     }//GEN-LAST:event_btnConsultarPedidoActionPerformed
 
@@ -690,7 +692,11 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                         lblQtdeTotalItens.setText(String.valueOf(qtdeTotal));
                         lblValorTotal.setText(df.format(valorTotal));
                         
-                        btnIncluir.setEnabled(numItens > 0);
+                        if (numItens > 0 && btnAlterar.isEnabled() == false){
+                            btnIncluir.setEnabled(true);
+                        } else {
+                            btnIncluir.setEnabled(false);
+                        }
                     }
                 }
             }
