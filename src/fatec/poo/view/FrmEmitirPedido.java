@@ -829,12 +829,13 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 qtdeTotal -= itemSelec.getQtdeVendida();
                 
                 pedido.removeItemPedido(itemSelec);
-                modTabItens.removeRow(linhaSelec);
                 
                 if (daoItemPedido.consultar(itemSelec.getPedido().getNumero(), itemSelec.getProduto().getCodigo()) != null){
                     daoProduto.alterar(itemSelec.getProduto());
                     daoItemPedido.excluir(itemSelec);
                 }
+                
+                modTabItens.removeRow(linhaSelec);
                 
                 lblQtdeTotalItens.setText(String.valueOf(numItens));
                 lblValorTotal.setText(df.format(valorTotal));
