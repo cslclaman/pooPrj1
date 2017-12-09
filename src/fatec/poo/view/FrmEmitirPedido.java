@@ -737,18 +737,24 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             txtNumeroPedido.setEnabled(true);
             txtNumeroPedido.setText("");
             ftxDataPedido.setText("");
+            
             ftxCPFCliente.setText("");
             lblNomeCliente.setText("");
             ftxCPFVendedor.setText("");
             lblNomeVendedor.setText("");
+            
             txtCodigoProduto.setText("");
             lblDescricaoProduto.setText("");
+            txtCodigoProduto.setEnabled(false);
+            
             btnAdicionarItem.setEnabled(false);
             btnRemoverItem.setEnabled(false);
             btnConsultarProduto.setEnabled(false);
+            
             txtQtdeVendida.setText("");
             lblValorTotal.setText("0,00");
             lblQtdeTotalItens.setText("0");
+            
             while (modTabItens.getRowCount() > 0){
                 modTabItens.removeRow(0);
             }
