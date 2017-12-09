@@ -80,6 +80,7 @@ public class Pedido {
     }
     
     public void removeItemPedido(ItemPedido item){
+        item.setQtdeVendida(0);
         itensPedidos.remove(item);
         cliente.setLimiteDisp(cliente.getLimiteDisp() + (item.getQtdeVendida() * item.getProduto().getPrecoUnit()));
     }
