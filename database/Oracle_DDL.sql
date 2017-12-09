@@ -55,12 +55,12 @@ CREATE TABLE TP_Pedido
 
 CREATE TABLE TP_Item_Pedido
 (
-  Numero_Item number(8) not null,
+  Numero_Item number(8) null,
   Qtde_Vendida number(7) not null,
   Numero_Pedido number(7) null, 
   Codigo_Produto number(7) not null,
   
-  CONSTRAINT PK_ItemPedido_NumeroItem PRIMARY KEY (Numero_Item)
+  CONSTRAINT PK_ItemPedido_Pedido_Produto PRIMARY KEY (Numero_Pedido, Codigo_Produto)
 );
 
 ALTER TABLE TP_Pedido
