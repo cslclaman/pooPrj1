@@ -103,6 +103,11 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
@@ -497,57 +502,63 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnConsultarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarPedidoActionPerformed
-        int numPedido = Integer.parseInt(txtNumeroPedido.getText());
-        
-        pedido = daoPedido.consultar(numPedido);
-        
-        if (pedido == null){
-            ftxDataPedido.setEnabled(true);
-            ftxCPFCliente.setEnabled(true);
-            
-            ftxDataPedido.requestFocus();
-        } else {
-            ftxDataPedido.setText(pedido.getDataEmissaoPedido());
-            
-            ftxCPFCliente.setText(pedido.getCliente().getCpf());
-            lblNomeCliente.setText(pedido.getCliente().getNome());
-            
-            ftxCPFVendedor.setText(pedido.getVendedor().getCpf());
-            lblNomeVendedor.setText(pedido.getVendedor().getNome());
-            
-            for (int i = 0; i < pedido.getItensPedidos().size(); i++){
-                ItemPedido item = pedido.getItensPedidos().get(i);
-                String[] linha = {
-                    String.valueOf(item.getProduto().getCodigo()),
-                    item.getProduto().getDescricao(),
-                    df.format(item.getProduto().getPrecoUnit()),
-                    String.valueOf(item.getQtdeVendida())
-                };
-                modTabItens.addRow(linha);
-                
-                double subtotal = item.getProduto().getPrecoUnit() * item.getQtdeVendida();
-                modTabItens.setValueAt(df.format(subtotal), modTabItens.getRowCount() - 1, 4);
-                
-                valorTotal += subtotal;
-                qtdeTotal += item.getQtdeVendida();
-                numItens ++;
+        try {
+            int numPedido = Integer.parseInt(txtNumeroPedido.getText());
+
+            pedido = daoPedido.consultar(numPedido);
+
+            if (pedido == null){
+                ftxDataPedido.setEnabled(true);
+                ftxCPFCliente.setEnabled(true);
+
+                ftxDataPedido.requestFocus();
+            } else {
+                ftxDataPedido.setText(pedido.getDataEmissaoPedido());
+
+                ftxCPFCliente.setText(pedido.getCliente().getCpf());
+                lblNomeCliente.setText(pedido.getCliente().getNome());
+
+                ftxCPFVendedor.setText(pedido.getVendedor().getCpf());
+                lblNomeVendedor.setText(pedido.getVendedor().getNome());
+
+                for (int i = 0; i < pedido.getItensPedidos().size(); i++){
+                    ItemPedido item = pedido.getItensPedidos().get(i);
+                    String[] linha = {
+                        String.valueOf(item.getProduto().getCodigo()),
+                        item.getProduto().getDescricao(),
+                        df.format(item.getProduto().getPrecoUnit()),
+                        String.valueOf(item.getQtdeVendida())
+                    };
+                    modTabItens.addRow(linha);
+
+                    double subtotal = item.getProduto().getPrecoUnit() * item.getQtdeVendida();
+                    modTabItens.setValueAt(df.format(subtotal), modTabItens.getRowCount() - 1, 4);
+
+                    valorTotal += subtotal;
+                    qtdeTotal += item.getQtdeVendida();
+                    numItens ++;
+                }
+
+                lblQtdeTotalItens.setText(String.valueOf(qtdeTotal));
+                lblValorTotal.setText(df.format(valorTotal));
+
+                txtCodigoProduto.setEnabled(true);
+                btnConsultarProduto.setEnabled(true);
+
+                btnAdicionarItem.setEnabled(true);
+                btnRemoverItem.setEnabled(true);
+
+                btnAlterar.setEnabled(true);
+                btnExcluir.setEnabled(true);
             }
-            
-            lblQtdeTotalItens.setText(String.valueOf(numItens));
-            lblValorTotal.setText(df.format(valorTotal));
-            
-            txtCodigoProduto.setEnabled(true);
-            btnConsultarProduto.setEnabled(true);
-            
-            btnAdicionarItem.setEnabled(true);
-            btnRemoverItem.setEnabled(true);
-            
-            btnAlterar.setEnabled(true);
-            btnExcluir.setEnabled(true);
-        }
-        
-        txtNumeroPedido.setEnabled(false);
-        btnConsultarPedido.setEnabled(false);
+
+            txtNumeroPedido.setEnabled(false);
+            btnConsultarPedido.setEnabled(false);
+        } catch (NumberFormatException ex) {
+            System.out.println(ex.getMessage() + " - " + ex.toString());
+            JOptionPane.showMessageDialog(null, "Aviso - valor inválido digitado", "Aviso", JOptionPane.WARNING_MESSAGE);
+            txtCodigoProduto.requestFocus();
+        } 
     }//GEN-LAST:event_btnConsultarPedidoActionPerformed
 
     private void ftxDataPedidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ftxDataPedidoFocusLost
@@ -562,6 +573,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             btnConsultarCliente.setEnabled(true);
             ftxCPFCliente.requestFocus();
         } catch (ParseException ex){
+            System.out.println(ex.getMessage() + " - " + ex.toString());
             JOptionPane.showMessageDialog(null, "Data inválida informada", "Aviso", JOptionPane.WARNING_MESSAGE);
             ftxDataPedido.selectAll();
             btnConsultarCliente.setEnabled(false);
@@ -639,6 +651,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             }
             
         } catch (NumberFormatException ex) {
+            System.out.println(ex.getMessage() + " - " + ex.toString());
             JOptionPane.showMessageDialog(null, "Aviso - valor inválido digitado", "Aviso", JOptionPane.WARNING_MESSAGE);
             txtCodigoProduto.requestFocus();
         } 
@@ -701,6 +714,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 }
             }
         } catch (NumberFormatException ex) {
+            System.out.println(ex.getMessage() + " - " + ex.toString());
             JOptionPane.showMessageDialog(null, "Aviso - valor inválido digitado", "Aviso", JOptionPane.WARNING_MESSAGE);
             txtQtdeVendida.requestFocus();
         } 
@@ -739,6 +753,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             
             pedido = null;
             numItens = 0;
+            qtdeTotal = 0;
             valorTotal = 0;
             
         } catch (Exception ex){
@@ -760,6 +775,32 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                         daoProduto.alterar(item.getProduto());
                     } 
                 }
+                
+                txtNumeroPedido.setEnabled(true);
+                txtNumeroPedido.setText("");
+                ftxDataPedido.setText("");
+                ftxCPFCliente.setText("");
+                lblNomeCliente.setText("");
+                ftxCPFVendedor.setText("");
+                lblNomeVendedor.setText("");
+                txtCodigoProduto.setText("");
+                lblDescricaoProduto.setText("");
+                btnAdicionarItem.setEnabled(false);
+                btnRemoverItem.setEnabled(false);
+                btnConsultarProduto.setEnabled(false);
+                txtQtdeVendida.setText("");
+                lblValorTotal.setText("0,00");
+                lblQtdeTotalItens.setText("0");
+                while (modTabItens.getRowCount() > 0){
+                    modTabItens.removeRow(0);
+                }
+                btnIncluir.setEnabled(false);
+                btnConsultarPedido.setEnabled(true);
+
+                pedido = null;
+                numItens = 0;
+                qtdeTotal = 0;
+                valorTotal = 0;
             } catch (Exception ex){
                 JOptionPane.showMessageDialog(this, ex.toString(), "Erro na operação", JOptionPane.ERROR_MESSAGE);
                 System.err.println(ex.toString() + "\n" + ex.getMessage());
@@ -787,6 +828,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 modTabItens.removeRow(linhaSelec);
                 
                 if (daoItemPedido.consultar(itemSelec.getPedido().getNumero(), itemSelec.getProduto().getCodigo()) != null){
+                    daoProduto.alterar(itemSelec.getProduto());
                     daoItemPedido.excluir(itemSelec);
                 }
                 
@@ -795,8 +837,56 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
 
                 btnIncluir.setEnabled(numItens > 0);
             }
-        }         
+        }
     }//GEN-LAST:event_btnRemoverItemActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if (JOptionPane.showConfirmDialog(this, "Confirma Exclusão?") == JOptionPane.OK_OPTION){
+            try {
+                for (int i = 0; i < pedido.getItensPedidos().size(); i ++){
+                    ItemPedido item = pedido.getItensPedidos().get(i);
+                    
+                    pedido.removeItemPedido(item);
+                    
+                    daoProduto.alterar(item.getProduto());
+                    daoItemPedido.excluir(item);
+                }
+                
+                daoCliente.alterar(pedido.getCliente());
+                daoPedido.excluir(pedido);
+                
+                txtNumeroPedido.setEnabled(true);
+                txtNumeroPedido.setText("");
+                ftxDataPedido.setText("");
+                ftxCPFCliente.setText("");
+                lblNomeCliente.setText("");
+                ftxCPFVendedor.setText("");
+                lblNomeVendedor.setText("");
+                txtCodigoProduto.setText("");
+                lblDescricaoProduto.setText("");
+                btnAdicionarItem.setEnabled(false);
+                btnRemoverItem.setEnabled(false);
+                btnConsultarProduto.setEnabled(false);
+                txtQtdeVendida.setText("");
+                lblValorTotal.setText("0,00");
+                lblQtdeTotalItens.setText("0");
+                while (modTabItens.getRowCount() > 0){
+                    modTabItens.removeRow(0);
+                }
+                btnIncluir.setEnabled(false);
+                btnConsultarPedido.setEnabled(true);
+
+                pedido = null;
+                numItens = 0;
+                qtdeTotal = 0;
+                valorTotal = 0;
+                
+            } catch (Exception ex){
+                JOptionPane.showMessageDialog(this, ex.toString(), "Erro na operação", JOptionPane.ERROR_MESSAGE);
+                System.err.println(ex.toString() + "\n" + ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     
     /**
