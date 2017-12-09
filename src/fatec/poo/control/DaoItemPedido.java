@@ -72,6 +72,7 @@ public class DaoItemPedido {
             );
 
             ps.setInt(1, numeroPedido);
+            ps.setInt(2, codigoProduto);
             ResultSet rs = ps.executeQuery();
            
             if (rs.next() == true) {
@@ -87,10 +88,9 @@ public class DaoItemPedido {
         return item;
     }
     
-    public ArrayList<ItemPedido> consultarItens (int numeroPedido) {
+    public ArrayList<ItemPedido> consultarItens (Pedido pedido) {
         ArrayList<ItemPedido> listaItens = new ArrayList<ItemPedido>();
         DaoProduto daoProduto = new DaoProduto(conn);
-        DaoPedido daoPedido = new DaoPedido(conn);
         
         PreparedStatement ps = null;
         try {
@@ -99,12 +99,12 @@ public class DaoItemPedido {
                 " WHERE Numero_Pedido = ?"
             );
 
-            ps.setInt(1, numeroPedido);
+            ps.setInt(1, pedido.getNumero());
             ResultSet rs = ps.executeQuery();
            
             while (rs.next() == true) {
                 ItemPedido item = new ItemPedido(rs.getInt("Numero_Item"), rs.getInt("Qtde_Vendida"));
-                item.setPedido(daoPedido.consultar(numeroPedido));
+                item.setPedido(pedido);
                 item.setProduto(daoProduto.consultar(rs.getInt("Codigo_Produto")));
                 
                 listaItens.add(item);

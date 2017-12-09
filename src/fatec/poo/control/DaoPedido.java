@@ -103,11 +103,11 @@ public class DaoPedido {
                 pedido.setStatus(status);
                 pedido.setCliente(daoCliente.consultar(rs.getString("CPF_Cliente")));
                 pedido.setVendedor(daoVendedor.consultar(rs.getString("CPF_Vendedor")));
-                pedido.setItensPedidos(daoItemPedido.consultarItens(pedido.getNumero()));
+                pedido.setItensPedidos(daoItemPedido.consultarItens(pedido));
             }
         }
         catch (SQLException ex) { 
-             System.out.println(ex.toString());   
+            System.out.println(ex.toString());
         }
         
         return (pedido);
