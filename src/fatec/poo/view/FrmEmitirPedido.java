@@ -340,6 +340,11 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
         btnRemoverItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnRemoverItem.setText("Remover Item");
         btnRemoverItem.setEnabled(false);
+        btnRemoverItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverItemActionPerformed(evt);
+            }
+        });
 
         lblValorTotal.setText("0,00");
         lblValorTotal.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -678,14 +683,14 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                         modTabItens.setValueAt(df.format(valorItem), modTabItens.getRowCount() - 1, 4);
                         
                         numItens ++;
+                        
+                        qtdeTotal += qtde;
                         valorTotal += valorItem;
                         
-                        lblQtdeTotalItens.setText(String.valueOf(numItens));
+                        lblQtdeTotalItens.setText(String.valueOf(qtdeTotal));
                         lblValorTotal.setText(df.format(valorTotal));
                         
-                        if (numItens > 0){
-                            btnIncluir.setEnabled(true);
-                        }
+                        btnIncluir.setEnabled(numItens > 0);
                     }
                 }
             }
@@ -738,18 +743,54 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         if (JOptionPane.showConfirmDialog(this, "Confirma Alteração?") == JOptionPane.OK_OPTION){
-            daoPedido.alterar(pedido);
-            daoCliente.alterar(pedido.getCliente());
-            for (int i = 0; i < pedido.getItensPedidos().size(); i ++){
-                /*
-                TODO: Checar se o item pedido já está cadastrado (daoItemPedido.consultar()).
-                Se estiver, atualiza.
-                Se não estiver, adiciona.
-                Se esteve cadastrado, mas não está mais, remove.
-                */
+            try {
+                daoPedido.alterar(pedido);
+                daoCliente.alterar(pedido.getCliente());
+                for (int i = 0; i < pedido.getItensPedidos().size(); i ++){
+                    ItemPedido item = pedido.getItensPedidos().get(i);
+
+                    if (daoItemPedido.consultar(item.getPedido().getNumero(), item.getProduto().getCodigo()) == null){
+                        daoItemPedido.inserir(item);
+                        daoProduto.alterar(item.getProduto());
+                    } 
+                }
+            } catch (Exception ex){
+                JOptionPane.showMessageDialog(this, ex.toString(), "Erro na operação", JOptionPane.ERROR_MESSAGE);
+                System.err.println(ex.toString() + "\n" + ex.getMessage());
             }
         }
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnRemoverItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverItemActionPerformed
+        int linhaSelec = tblItemPedido.getSelectedRow();
+        if (linhaSelec == -1){
+            JOptionPane.showMessageDialog(null, "Nenhuma linha selecionada", "Aviso", JOptionPane.WARNING_MESSAGE);
+        } else {
+            ItemPedido itemSelec = null;
+            for (int i = 0; i < pedido.getItensPedidos().size(); i++){
+                ItemPedido item = pedido.getItensPedidos().get(i);
+                if (item.getProduto().getCodigo() == Integer.parseInt(modTabItens.getValueAt(linhaSelec, 0).toString())){
+                    itemSelec = item;
+                }
+            }
+            if (itemSelec != null){
+                valorTotal -= (itemSelec.getProduto().getPrecoUnit() * itemSelec.getQtdeVendida());
+                qtdeTotal -= itemSelec.getQtdeVendida();
+                
+                pedido.removeItemPedido(itemSelec);
+                modTabItens.removeRow(linhaSelec);
+                
+                if (daoItemPedido.consultar(itemSelec.getPedido().getNumero(), itemSelec.getProduto().getCodigo()) != null){
+                    daoItemPedido.excluir(itemSelec);
+                }
+                
+                lblQtdeTotalItens.setText(String.valueOf(numItens));
+                lblValorTotal.setText(df.format(valorTotal));
+
+                btnIncluir.setEnabled(numItens > 0);
+            }
+        }         
+    }//GEN-LAST:event_btnRemoverItemActionPerformed
 
     
     /**
@@ -825,6 +866,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
     private javax.swing.JTextField txtQtdeVendida;
     // End of variables declaration//GEN-END:variables
     private int numItens = 0;
+    private int qtdeTotal = 0;
     private double valorTotal = 0;
     
     private Pedido pedido = null;
