@@ -44,13 +44,13 @@ public class DaoProduto {
                     " SET Descricao = ?,Qtde_Disponivel = ?,Preco_Unit = ?,Estoque_Min = ?"+
                     " WHERE Codigo = ?");
             
-            ps.setInt(5, produto.getCodigo());
-            
             ps.setString(1, produto.getDescricao());
             ps.setInt(2, produto.getQtdeDisponivel());
             ps.setDouble(3, produto.getPrecoUnit());
             ps.setInt(4, produto.getEstoqueMin());
 
+            ps.setInt(5, produto.getCodigo());
+            
             ps.execute();
         } catch (SQLException ex) {
              System.out.println(ex.toString());   
