@@ -16,7 +16,6 @@ import java.sql.Connection;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -479,9 +478,9 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        conexao = new Conexao("BD1611009","dont100nha");
+        conexao = new Conexao("AppUser","123");
         conexao.setDriver("oracle.jdbc.driver.OracleDriver");
-        conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
+        conexao.setConnectionString("jdbc:oracle:thin:@localhost:1521:xe");
         
         Connection conn = conexao.conectar();
         daoPedido = new DaoPedido(conn);
@@ -737,18 +736,24 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             txtNumeroPedido.setEnabled(true);
             txtNumeroPedido.setText("");
             ftxDataPedido.setText("");
+            
             ftxCPFCliente.setText("");
             lblNomeCliente.setText("");
             ftxCPFVendedor.setText("");
             lblNomeVendedor.setText("");
+            
             txtCodigoProduto.setText("");
             lblDescricaoProduto.setText("");
+            txtCodigoProduto.setEnabled(false);
+            
             btnAdicionarItem.setEnabled(false);
             btnRemoverItem.setEnabled(false);
             btnConsultarProduto.setEnabled(false);
+            
             txtQtdeVendida.setText("");
             lblValorTotal.setText("0,00");
             lblQtdeTotalItens.setText("0");
+            
             while (modTabItens.getRowCount() > 0){
                 modTabItens.removeRow(0);
             }
@@ -771,6 +776,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             try {
                 daoPedido.alterar(pedido);
                 daoCliente.alterar(pedido.getCliente());
+                
                 for (int i = 0; i < pedido.getItensPedidos().size(); i ++){
                     ItemPedido item = pedido.getItensPedidos().get(i);
 
@@ -783,18 +789,24 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 txtNumeroPedido.setEnabled(true);
                 txtNumeroPedido.setText("");
                 ftxDataPedido.setText("");
+
                 ftxCPFCliente.setText("");
                 lblNomeCliente.setText("");
                 ftxCPFVendedor.setText("");
                 lblNomeVendedor.setText("");
+
                 txtCodigoProduto.setText("");
                 lblDescricaoProduto.setText("");
+                txtCodigoProduto.setEnabled(false);
+
                 btnAdicionarItem.setEnabled(false);
                 btnRemoverItem.setEnabled(false);
                 btnConsultarProduto.setEnabled(false);
+
                 txtQtdeVendida.setText("");
                 lblValorTotal.setText("0,00");
                 lblQtdeTotalItens.setText("0");
+
                 while (modTabItens.getRowCount() > 0){
                     modTabItens.removeRow(0);
                 }
@@ -805,6 +817,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 numItens = 0;
                 qtdeTotal = 0;
                 valorTotal = 0;
+            
             } catch (Exception ex){
                 JOptionPane.showMessageDialog(this, ex.toString(), "Erro na operação", JOptionPane.ERROR_MESSAGE);
                 System.err.println(ex.toString() + "\n" + ex.getMessage());
@@ -829,15 +842,9 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 qtdeTotal -= itemSelec.getQtdeVendida();
                 
                 pedido.removeItemPedido(itemSelec);
-                
-                if (daoItemPedido.consultar(itemSelec.getPedido().getNumero(), itemSelec.getProduto().getCodigo()) != null){
-                    daoProduto.alterar(itemSelec.getProduto());
-                    daoItemPedido.excluir(itemSelec);
-                }
-                
                 modTabItens.removeRow(linhaSelec);
                 
-                lblQtdeTotalItens.setText(String.valueOf(numItens));
+                lblQtdeTotalItens.setText(String.valueOf(qtdeTotal));
                 lblValorTotal.setText(df.format(valorTotal));
             }
         }
@@ -848,9 +855,6 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
             try {
                 for (int i = 0; i < pedido.getItensPedidos().size(); i ++){
                     ItemPedido item = pedido.getItensPedidos().get(i);
-                    
-                    item.getProduto().setQtdeDisponivel(item.getProduto().getQtdeDisponivel() + item.getQtdeVendida());
-                    daoProduto.alterar(item.getProduto());
                     daoItemPedido.excluir(item);
                 }
                 
@@ -860,18 +864,24 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 txtNumeroPedido.setEnabled(true);
                 txtNumeroPedido.setText("");
                 ftxDataPedido.setText("");
+
                 ftxCPFCliente.setText("");
                 lblNomeCliente.setText("");
                 ftxCPFVendedor.setText("");
                 lblNomeVendedor.setText("");
+
                 txtCodigoProduto.setText("");
                 lblDescricaoProduto.setText("");
+                txtCodigoProduto.setEnabled(false);
+
                 btnAdicionarItem.setEnabled(false);
                 btnRemoverItem.setEnabled(false);
                 btnConsultarProduto.setEnabled(false);
+
                 txtQtdeVendida.setText("");
                 lblValorTotal.setText("0,00");
                 lblQtdeTotalItens.setText("0");
+
                 while (modTabItens.getRowCount() > 0){
                     modTabItens.removeRow(0);
                 }
