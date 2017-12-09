@@ -669,10 +669,10 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Quantidade deve ser maior que zero", "Aviso", JOptionPane.WARNING_MESSAGE);
                 txtQtdeVendida.requestFocus();
             } else {
-                if (produto.getQtdeDisponivel() < qtde){
+                if ((produto.getQtdeDisponivel() - produto.getEstoqueMin()) < qtde){
                     JOptionPane.showMessageDialog(null, 
                             "Quantidade indisponível em estoque\n" + 
-                            "Disponível: " + produto.getQtdeDisponivel(), 
+                            "Disponível: " + (produto.getQtdeDisponivel() - produto.getEstoqueMin()), 
                             "Aviso", JOptionPane.WARNING_MESSAGE);
                     txtQtdeVendida.requestFocus();
                 } else {
@@ -706,6 +706,13 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                         
                         lblQtdeTotalItens.setText(String.valueOf(qtdeTotal));
                         lblValorTotal.setText(df.format(valorTotal));
+                        
+                        lblDescricaoProduto.setText("");
+                        txtQtdeVendida.setText("");
+                        txtQtdeVendida.setEnabled(false);
+                        txtCodigoProduto.setText("");
+                        
+                        txtCodigoProduto.requestFocus();
                         
                     }
                 }
