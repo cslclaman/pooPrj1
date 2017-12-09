@@ -41,7 +41,7 @@ public class DaoProduto {
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("UPDATE TP_Produto" +
-                    " set Descricao = ?,Qtde_Disponivel = ?,Preco_Unit = ?,Estoque_Min = ?"+
+                    " SET Descricao = ?,Qtde_Disponivel = ?,Preco_Unit = ?,Estoque_Min = ?"+
                     " WHERE Codigo = ?");
             
             ps.setInt(5, produto.getCodigo());

@@ -848,8 +848,7 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 for (int i = 0; i < pedido.getItensPedidos().size(); i ++){
                     ItemPedido item = pedido.getItensPedidos().get(i);
                     
-                    pedido.removeItemPedido(item);
-                    
+                    item.getProduto().setQtdeDisponivel(item.getProduto().getQtdeDisponivel() + item.getQtdeVendida());
                     daoProduto.alterar(item.getProduto());
                     daoItemPedido.excluir(item);
                 }
