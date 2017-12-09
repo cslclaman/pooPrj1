@@ -626,6 +626,8 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 txtCodigoProduto.setEnabled(true);
                 btnConsultarProduto.setEnabled(true);
                 txtCodigoProduto.requestFocus();
+                
+                btnIncluir.setEnabled(true);
             } 
         } else {
             JOptionPane.showMessageDialog(null, "CPF Inválido", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -705,11 +707,6 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                         lblQtdeTotalItens.setText(String.valueOf(qtdeTotal));
                         lblValorTotal.setText(df.format(valorTotal));
                         
-                        if (numItens > 0 && btnAlterar.isEnabled() == false){
-                            btnIncluir.setEnabled(true);
-                        } else {
-                            btnIncluir.setEnabled(false);
-                        }
                     }
                 }
             }
@@ -834,8 +831,6 @@ public class FrmEmitirPedido extends javax.swing.JFrame {
                 
                 lblQtdeTotalItens.setText(String.valueOf(numItens));
                 lblValorTotal.setText(df.format(valorTotal));
-
-                btnIncluir.setEnabled(numItens > 0);
             }
         }
     }//GEN-LAST:event_btnRemoverItemActionPerformed
